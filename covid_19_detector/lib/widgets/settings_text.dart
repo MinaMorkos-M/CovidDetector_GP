@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-class AccountSettingsText extends StatelessWidget {
-  const AccountSettingsText({Key? key}) : super(key: key);
+class SettingsText extends StatelessWidget {
+  final String text;
+  SettingsText(this.text);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class AccountSettingsText extends StatelessWidget {
           top: 15,
         ),
         child: Text(
-          'Account Settings',
+          text,
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),

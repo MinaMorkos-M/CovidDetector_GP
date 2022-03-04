@@ -1,4 +1,4 @@
-import 'package:covid_19_detector/widgets/account_settings_text.dart';
+import 'package:covid_19_detector/widgets/settings_text.dart';
 import 'package:flutter/material.dart';
 
 class Settings extends StatefulWidget {
@@ -18,6 +18,7 @@ class _SettingsState extends State<Settings> {
       ),
       body: Column(
         children: [
+          SettingsText('General Settings'),
           ListTile(
             title: Text('Infected mode'),
             trailing: Switch(
@@ -44,7 +45,7 @@ class _SettingsState extends State<Settings> {
             ),
           ),
           Divider(),
-          AccountSettingsText(),
+          SettingsText('Account Settings'),
           ListTile(
             leading: CircleAvatar(
               backgroundColor: Theme.of(context).accentColor,
