@@ -25,6 +25,10 @@ dependencies:
     sdk: flutter
   page_indicator: ^0.4.1
   url_launcher: ^6.0.10
+  google_maps_flutter: ^2.0.9
+  geolocator: ^8.0.5
+  location: ^4.3.0
+  material_floating_search_bar: ^0.3.5
   
 
 
@@ -74,6 +78,7 @@ flutter:
     - assets/images/preventions/stay_home.jpg
     - assets/images/preventions/wash_your_hands.jpg
     - assets/images/preventions/wear_a_mask.jpg
+    - assets/images/virus.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

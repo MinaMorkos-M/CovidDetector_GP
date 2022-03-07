@@ -1,3 +1,4 @@
+import 'package:covid_19_detector/screens/map_screen.dart';
 import 'package:covid_19_detector/screens/profile.dart';
 import 'package:covid_19_detector/screens/statistics.dart';
 import 'package:flutter/material.dart';
@@ -19,10 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   static const List<Widget> _pages = <Widget>[
     Profile(),
-    Icon(
-      Icons.location_on_outlined,
-      size: 150,
-    ),
+    MapScreen(),
     Statistics(),
   ];
   @override
