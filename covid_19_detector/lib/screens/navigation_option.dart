@@ -6,8 +6,11 @@ class NavigationOption extends StatelessWidget {
   final bool selected;
   final Function() onSelected;
 
-  NavigationOption(
-      {required this.title, required this.selected, required this.onSelected});
+  NavigationOption({
+    required this.title,
+    required this.selected,
+    required this.onSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,7 @@ class NavigationOption extends StatelessWidget {
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
+        children: [
           Text(
             title,
             style: TextStyle(
@@ -42,7 +45,7 @@ class NavigationOption extends StatelessWidget {
                     )
                   ],
                 )
-              : Container()
+              : Container(),
         ],
       ),
     );

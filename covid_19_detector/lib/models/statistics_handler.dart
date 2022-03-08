@@ -17,27 +17,27 @@ class CovidHandler {
     return summary;
   }
 
-  Future<List<CountrySummaryModel>> getCountrySummary(String slug) async {
+  Future<List<CountrySummary>> getCountrySummary(String slug) async {
     final data = await http.Client().get(
-        Uri.parse("https://api.covid19api.com/total/dayone/country/${slug}"));
+        Uri.parse("https://api.covid19api.com/total/dayone/country/$slug"));
 
     if (data.statusCode != 200) throw Exception();
 
-    List<CountrySummaryModel> summaryList = (json.decode(data.body) as List)
-        .map((item) => new CountrySummaryModel.fromJson(item))
+    List<CountrySummary> summaryList = (json.decode(data.body) as List)
+        .map((item) => new CountrySummary.fromJson(item))
         .toList();
 
     return summaryList;
   }
 
-  Future<List<CountryModel>> getCountryList() async {
+  Future<List<Country>> getCountryList() async {
     final data = await http.Client()
         .get(Uri.parse("https://api.covid19api.com/countries"));
 
     if (data.statusCode != 200) throw Exception();
 
-    List<CountryModel> countries = (json.decode(data.body) as List)
-        .map((item) => new CountryModel.fromJson(item))
+    List<Country> countries = (json.decode(data.body) as List)
+        .map((item) => new Country.fromJson(item))
         .toList();
 
     return countries;

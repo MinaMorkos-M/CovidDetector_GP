@@ -48,21 +48,21 @@ class _HomeScreenState extends State<HomeScreen> {
               Icons.account_circle,
               size: 35,
             ),
-            label: 'profile',
+            label: 'Profile',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.location_on_outlined,
               size: 35,
             ),
-            label: 'currentLocation',
+            label: 'Current Location',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.stacked_bar_chart,
               size: 35,
             ),
-            label: 'statistics',
+            label: 'Statistics',
           ),
         ],
       ),

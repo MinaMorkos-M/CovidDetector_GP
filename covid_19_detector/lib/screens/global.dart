@@ -25,7 +25,7 @@ class _GlobalState extends State<Global> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
+      children: [
         Padding(
           padding: EdgeInsets.symmetric(
             horizontal: 4,
@@ -33,7 +33,7 @@ class _GlobalState extends State<Global> {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
+            children: [
               Text(
                 'Global Cases',
                 style: TextStyle(

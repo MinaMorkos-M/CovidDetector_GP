@@ -2,10 +2,6 @@ import 'package:covid_19_detector/helpers/constants.dart';
 import 'package:covid_19_detector/screens/country.dart';
 import 'package:covid_19_detector/screens/global.dart';
 import 'package:covid_19_detector/screens/navigation_option.dart';
-import 'package:covid_19_detector/screens/preventions.dart';
-import 'package:covid_19_detector/screens/symptoms.dart';
-import 'package:covid_19_detector/screens/who_questions.dart';
-import 'package:covid_19_detector/widgets/statistic_circle.dart';
 import 'package:flutter/material.dart';
 
 enum NavigationState { GLOBAL, COUNTRY }
@@ -23,7 +19,7 @@ class _StatisticsState extends State<Statistics> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: <Widget>[
+        children: [
           Expanded(
             child: Container(
               padding: EdgeInsets.all(32),
@@ -40,7 +36,7 @@ class _StatisticsState extends State<Statistics> {
                 ),
                 child: navigationState == NavigationState.GLOBAL
                     ? Global()
-                    : Country(),
+                    : CountryState(),
               ),
             ),
           ),

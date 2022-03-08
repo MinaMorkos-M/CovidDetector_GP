@@ -1,12 +1,16 @@
-class CountryModel{
+class Country {
   final String country;
   final String slug;
   final String iso2;
 
-  CountryModel(this.country, this.slug, this.iso2);
+  Country(
+    this.country,
+    this.slug,
+    this.iso2,
+  );
 
-  factory CountryModel.fromJson(Map<String, dynamic> json){
-    return CountryModel(
+  factory Country.fromJson(Map<String, dynamic> json) {
+    return Country(
       json["Country"],
       json["Slug"],
       json["ISO2"],

@@ -9,15 +9,15 @@ import 'package:flutter_typeahead/flutter_typeahead.dart'
 
 CovidHandler covidHandler = CovidHandler();
 
-class Country extends StatefulWidget {
+class CountryState extends StatefulWidget {
   @override
-  State<Country> createState() => _CountryState();
+  State<CountryState> createState() => _CountryState();
 }
 
-class _CountryState extends State<Country> {
+class _CountryState extends State<CountryState> {
   final TextEditingController _typeAheadController = TextEditingController();
-  late Future<List<CountryModel>> countryList;
-  late Future<List<CountrySummaryModel>> summaryList;
+  late Future<List<Country>> countryList;
+  late Future<List<CountrySummary>> summaryList;
 
   @override
   void initState() {
@@ -27,7 +27,7 @@ class _CountryState extends State<Country> {
     this._typeAheadController.text = "Egypt";
   }
 
-  List<String> _getSuggestions(List<CountryModel> list, String query) {
+  List<String> _getSuggestions(List<Country> list, String query) {
     List<String> matches = [];
     for (var item in list) {
       matches.add(item.country);
@@ -39,7 +39,7 @@ class _CountryState extends State<Country> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<CountryModel>>(
+    return FutureBuilder<List<Country>>(
       future: countryList,
       builder: (context, snapshot) {
         if (snapshot.hasError)
@@ -104,7 +104,10 @@ class _CountryState extends State<Country> {
                           setState(() {
                             //summaryList = covidHandler.getCountrySummary((snapshot.data as String));
                             summaryList = covidHandler.getCountrySummary(
-                          snapshot.data!.firstWhere((element) => element.country == suggestion).slug);
+                                snapshot.data!
+                                    .firstWhere((element) =>
+                                        element.country == suggestion)
+                                    .slug);
                           });
                         },
                         transitionBuilder:
@@ -118,7 +121,7 @@ class _CountryState extends State<Country> {
                         },
                         suggestionsCallback: (pattern) {
                           return _getSuggestions(
-                              (snapshot.data as List<CountryModel>), pattern);
+                              (snapshot.data as List<Country>), pattern);
                         },
                       ),
                       SizedBox(
@@ -141,7 +144,7 @@ class _CountryState extends State<Country> {
                                     )
                                   : CountryStatistics(
                                       summaryList: (snapshot.data
-                                          as List<CountrySummaryModel>),
+                                          as List<CountrySummary>),
                                     );
                           }
                         },

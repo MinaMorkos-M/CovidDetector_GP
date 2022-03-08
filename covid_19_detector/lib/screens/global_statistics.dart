@@ -1,5 +1,6 @@
 import 'package:covid_19_detector/helpers/constants.dart';
 import 'package:covid_19_detector/models/global.dart';
+import 'package:covid_19_detector/widgets/global_build_card.dart';
 import 'package:flutter/material.dart';
 
 class GlobalStatistics extends StatelessWidget {
@@ -14,20 +15,35 @@ class GlobalStatistics extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         children: [
           Column(
-            children: <Widget>[
-              buildCard("CONFIRMED", summary.totalConfirmed, summary.newConfirmed,
-                  kConfirmedColor),
-              buildCard(
-                  "ACTIVE",
-                  summary.totalConfirmed -
-                      summary.totalRecovered -
-                      summary.totalDeaths,
-                  summary.newConfirmed - summary.newRecovered - summary.newDeaths,
-                  kActiveColor),
-              buildCard("RECOVERED", summary.totalRecovered, summary.newRecovered,
-                  kRecoveredColor),
-              buildCard(
-                  "DEATH", summary.totalDeaths, summary.newDeaths, kDeathColor),
+            children: [
+              GlobalBuildCard(
+                title: "CONFIRMED",
+                totalCount: summary.totalConfirmed,
+                todayCount: summary.newConfirmed,
+                color: kConfirmedColor,
+              ),
+              GlobalBuildCard(
+                title: "ACTIVE",
+                totalCount: summary.totalConfirmed -
+                    summary.totalRecovered -
+                    summary.totalDeaths,
+                todayCount: summary.newConfirmed -
+                    summary.newRecovered -
+                    summary.newDeaths,
+                color: kActiveColor,
+              ),
+              GlobalBuildCard(
+                title: "RECOVERED",
+                totalCount: summary.totalRecovered,
+                todayCount: summary.newRecovered,
+                color: kRecoveredColor,
+              ),
+              GlobalBuildCard(
+                title: "DEATH",
+                totalCount: summary.totalDeaths,
+                todayCount: summary.newDeaths,
+                color: kDeathColor,
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 4, vertical: 6),
                 child: Text(
@@ -42,78 +58,6 @@ class GlobalStatistics extends StatelessWidget {
             ],
           ),
         ],
-      ),
-    );
-  }
-
-  Widget buildCard(String title, int totalCount, int todayCount, Color color) {
-    return Card(
-      elevation: 1,
-      child: Container(
-        height: 100,
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-        child: Column(
-          children: <Widget>[
-            Text(
-              title,
-              style: TextStyle(
-                color: Colors.grey,
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
-            ),
-            Expanded(
-              child: Container(),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Total",
-                      style: TextStyle(
-                        color: color,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                      ),
-                    ),
-                    Text(
-                      totalCount.toString(),
-                      style: TextStyle(
-                        color: color,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                      "Today",
-                      style: TextStyle(
-                        color: color,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                      ),
-                    ),
-                    Text(
-                      todayCount.toString(),
-                      style: TextStyle(
-                        color: color,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
       ),
     );
   }
