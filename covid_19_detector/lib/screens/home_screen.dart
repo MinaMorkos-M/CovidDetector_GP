@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  static const List<Widget> _pages = <Widget>[
+  static List<Widget> _pages = <Widget>[
     Profile(),
     MapScreen(),
     Statistics(),

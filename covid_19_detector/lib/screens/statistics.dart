@@ -1,103 +1,77 @@
+import 'package:covid_19_detector/helpers/constants.dart';
+import 'package:covid_19_detector/screens/country.dart';
+import 'package:covid_19_detector/screens/global.dart';
+import 'package:covid_19_detector/screens/navigation_option.dart';
 import 'package:covid_19_detector/screens/preventions.dart';
 import 'package:covid_19_detector/screens/symptoms.dart';
 import 'package:covid_19_detector/screens/who_questions.dart';
 import 'package:covid_19_detector/widgets/statistic_circle.dart';
 import 'package:flutter/material.dart';
 
-class Statistics extends StatelessWidget {
+enum NavigationState { GLOBAL, COUNTRY }
+
+class Statistics extends StatefulWidget {
   const Statistics({Key? key}) : super(key: key);
 
   @override
+  _StatisticsState createState() => _StatisticsState();
+}
+
+class _StatisticsState extends State<Statistics> {
+  NavigationState navigationState = NavigationState.GLOBAL;
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.only(
-            top: 25,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              StatisticCircle('1000', 'New Infected'),
-              StatisticCircle('500', 'Recovered'),
-            ],
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(
-            top: 25,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              StatisticCircle('2500', 'Total Infected'),
-              StatisticCircle('200', 'Dead'),
-            ],
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).size.height * 0.05,
-          ),
-          child: Column(
-            children: [
-              ListTile(
-                title: Text(
-                  'Symptoms',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.all(32),
+              decoration: BoxDecoration(
+                color: kPrimaryColor,
+                borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(50),
+                  bottomLeft: Radius.circular(50),
                 ),
-                trailing: Icon(Icons.keyboard_arrow_right_sharp),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Symptoms(),
-                    ),
-                  );
-                },
               ),
-              Divider(),
-              ListTile(
-                title: Text(
-                  'Preventions',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+              child: AnimatedSwitcher(
+                duration: Duration(
+                  milliseconds: 250,
                 ),
-                trailing: Icon(Icons.keyboard_arrow_right_sharp),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Preventions(),
-                    ),
-                  );
-                },
+                child: navigationState == NavigationState.GLOBAL
+                    ? Global()
+                    : Country(),
               ),
-              Divider(),
-              ListTile(
-                title: Text(
-                  'WHO Questions',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                trailing: Icon(Icons.keyboard_arrow_right_sharp),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => WhoQuestions(),
-                    ),
-                  );
-                },
-              ),
-            ],
+            ),
           ),
-        ),
-      ],
+          Container(
+            height: MediaQuery.of(context).size.height * 0.1,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                NavigationOption(
+                  title: "Global",
+                  selected: navigationState == NavigationState.GLOBAL,
+                  onSelected: () {
+                    setState(() {
+                      navigationState = NavigationState.GLOBAL;
+                    });
+                  },
+                ),
+                NavigationOption(
+                  title: "Country",
+                  selected: navigationState == NavigationState.COUNTRY,
+                  onSelected: () {
+                    setState(() {
+                      navigationState = NavigationState.COUNTRY;
+                    });
+                  },
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
