@@ -12,11 +12,10 @@ class ProfileData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Padding(
-        padding: EdgeInsets.all(3.0),
-        child: CircleAvatar(
-          radius: 25,
-        ),
+      leading: Icon(
+        Icons.account_circle,
+        size: 50,
+        color: Colors.black,
       ),
       title: Text(
         '$name',

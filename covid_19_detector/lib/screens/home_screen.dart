@@ -18,9 +18,10 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  static List<Widget> _pages = <Widget>[
+  static List<Widget> _pages = [
     Profile(),
     MapScreen(),
+    //Maps(),
     Statistics(),
   ];
   @override

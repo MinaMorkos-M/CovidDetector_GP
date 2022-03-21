@@ -13,5 +13,3 @@ Color kConfirmedColor = Color(0xFFFF1242);
 Color kActiveColor = Color(0xFF017BFF);
 Color kRecoveredColor = Color(0xFF29A746);
 Color kDeathColor = Color(0xFF6D757D);
-
-

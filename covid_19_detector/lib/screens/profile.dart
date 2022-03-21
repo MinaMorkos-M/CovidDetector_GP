@@ -1,11 +1,21 @@
 import 'package:covid_19_detector/screens/about.dart';
-import 'package:covid_19_detector/screens/messages.dart';
+import 'package:covid_19_detector/screens/preventions.dart';
 import 'package:covid_19_detector/screens/settings.dart';
+import 'package:covid_19_detector/screens/symptoms.dart';
+import 'package:covid_19_detector/screens/who_questions.dart';
 import 'package:covid_19_detector/widgets/profile_data.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({Key? key}) : super(key: key);
+  final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
+    primary: Colors.red,
+    elevation: 5,
+    minimumSize: Size(88, 36),
+    padding: EdgeInsets.symmetric(horizontal: 16),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(12)),
+    ),
+  );
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -15,6 +25,7 @@ class Profile extends StatelessWidget {
           child: Column(
             children: [
               Card(
+                elevation: 0,
                 margin: EdgeInsets.symmetric(
                   vertical: MediaQuery.of(context).size.height * 0.025,
                 ),
@@ -22,7 +33,7 @@ class Profile extends StatelessWidget {
               ),
               ListTile(
                 title: Text(
-                  'Messages',
+                  'Symptoms',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -32,7 +43,43 @@ class Profile extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Messages(),
+                      builder: (context) => Symptoms(),
+                    ),
+                  );
+                },
+              ),
+              Divider(),
+              ListTile(
+                title: Text(
+                  'Preventions',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                trailing: Icon(Icons.keyboard_arrow_right_sharp),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Preventions(),
+                    ),
+                  );
+                },
+              ),
+              Divider(),
+              ListTile(
+                title: Text(
+                  'WHO Questions',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                trailing: Icon(Icons.keyboard_arrow_right_sharp),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => WhoQuestions(),
                     ),
                   );
                 },
@@ -82,12 +129,8 @@ class Profile extends StatelessWidget {
           margin: EdgeInsets.only(
             bottom: MediaQuery.of(context).size.height * 0.05,
           ),
-          child: RaisedButton(
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            color: Colors.red,
+          child: ElevatedButton(
+            style: raisedButtonStyle,
             child: Text(
               'Log Out',
               style: TextStyle(

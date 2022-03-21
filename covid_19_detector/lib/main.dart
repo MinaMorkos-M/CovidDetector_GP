@@ -1,8 +1,10 @@
+import 'package:covid_19_detector/helpers/user_list.dart';
 import 'package:covid_19_detector/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(
+    
     //MultiProvider(
     //  providers: [
     //    ChangeNotifierProvider(

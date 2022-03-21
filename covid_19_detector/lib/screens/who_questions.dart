@@ -20,6 +20,36 @@ class _WhoQuestionsState extends State<WhoQuestions> {
     'In the last two weeks, have you worked or volunteered in a healthcare facility or as a first responder? Healthcare facilities include a hospital, medical or dental clinic, long-term care facility, or nursing home.',
   ];
 
+  final ButtonStyle yesButtton = ElevatedButton.styleFrom(
+    primary: Colors.green,
+    elevation: 5,
+    minimumSize: Size(88, 36),
+    padding: EdgeInsets.symmetric(horizontal: 16),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(12)),
+    ),
+  );
+
+  final ButtonStyle noButton = ElevatedButton.styleFrom(
+    primary: Colors.red,
+    elevation: 5,
+    minimumSize: Size(88, 36),
+    padding: EdgeInsets.symmetric(horizontal: 16),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(12)),
+    ),
+  );
+
+  final ButtonStyle againButton = ElevatedButton.styleFrom(
+    primary: Colors.grey[500],
+    elevation: 5,
+    minimumSize: Size(88, 36),
+    padding: EdgeInsets.symmetric(horizontal: 16),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(12)),
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,12 +72,8 @@ class _WhoQuestionsState extends State<WhoQuestions> {
                     margin: EdgeInsets.only(bottom: 15),
                     height: 50,
                     width: 100,
-                    child: RaisedButton(
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      color: Colors.green,
+                    child: ElevatedButton(
+                      style: yesButtton,
                       child: Text(
                         'Yes',
                         style: TextStyle(
@@ -66,12 +92,8 @@ class _WhoQuestionsState extends State<WhoQuestions> {
                   Container(
                     height: 50,
                     width: 100,
-                    child: RaisedButton(
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      color: Colors.red,
+                    child: ElevatedButton(
+                      style: noButton,
                       child: Text(
                         'No',
                         style: TextStyle(
@@ -120,7 +142,8 @@ class _WhoQuestionsState extends State<WhoQuestions> {
                     margin: EdgeInsets.only(
                       top: 30,
                     ),
-                    child: RaisedButton(
+                    child: ElevatedButton(
+                      style: againButton,
                       child: Text('Again'),
                       onPressed: () {
                         setState(() {
