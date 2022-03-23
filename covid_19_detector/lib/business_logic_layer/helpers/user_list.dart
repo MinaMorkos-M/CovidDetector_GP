@@ -1,4 +1,5 @@
-import 'package:covid_19_detector/models/user.dart';
+
+import 'package:covid_19_detector/data_layer/models/user.dart';
 
 class Dummy {
   static List<User> users = [

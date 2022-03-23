@@ -1,6 +1,6 @@
-import 'package:covid_19_detector/helpers/constants.dart';
-import 'package:covid_19_detector/models/country_summary.dart';
-import 'package:covid_19_detector/widgets/country_build_card.dart';
+import 'package:covid_19_detector/business_logic_layer/helpers/constants.dart';
+import 'package:covid_19_detector/data_layer/models/country_summary.dart';
+import 'package:covid_19_detector/presentation_layer/widgets/country_build_card.dart';
 import 'package:flutter/material.dart';
 
 class CountryStatistics extends StatelessWidget {

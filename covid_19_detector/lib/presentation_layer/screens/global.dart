@@ -1,7 +1,7 @@
-import 'package:covid_19_detector/models/global.dart';
-import 'package:covid_19_detector/models/statistics_handler.dart';
-import 'package:covid_19_detector/screens/global_loading.dart';
-import 'package:covid_19_detector/screens/global_statistics.dart';
+import 'package:covid_19_detector/data_layer/models/global.dart';
+import 'package:covid_19_detector/data_layer/models/statistics_handler.dart';
+import 'package:covid_19_detector/presentation_layer/screens/global_loading.dart';
+import 'package:covid_19_detector/presentation_layer/screens/global_statistics.dart';
 import 'package:flutter/material.dart';
 
 CovidHandler covidHandler = CovidHandler();

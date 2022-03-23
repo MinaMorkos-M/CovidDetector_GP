@@ -34,12 +34,14 @@ dependencies:
   shimmer: ^2.0.0
   flutter_typeahead: ^3.2.4
   timeago: ^2.0.26
-  charts_flutter: ^0.9.0
   geocoding: ^2.0.2
   equatable: ^2.0.3
   flutter_bloc: ^8.0.1
   great_circle_distance: ^1.0.1
   geocoder: ^0.2.1
+  uuid: ^3.0.6
+  google_place: ^0.4.7
+  flutter_polyline_points: ^1.0.0
   http: 
 
 

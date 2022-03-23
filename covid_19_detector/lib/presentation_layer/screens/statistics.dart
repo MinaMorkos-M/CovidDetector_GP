@@ -1,7 +1,8 @@
-import 'package:covid_19_detector/helpers/constants.dart';
-import 'package:covid_19_detector/screens/country.dart';
-import 'package:covid_19_detector/screens/global.dart';
-import 'package:covid_19_detector/screens/navigation_option.dart';
+import 'package:covid_19_detector/business_logic_layer/helpers/constants.dart';
+import 'package:covid_19_detector/presentation_layer/screens/country.dart';
+import 'package:covid_19_detector/presentation_layer/screens/global.dart';
+import 'package:covid_19_detector/presentation_layer/screens/navigation_option.dart';
+
 import 'package:flutter/material.dart';
 
 enum NavigationState { GLOBAL, COUNTRY }

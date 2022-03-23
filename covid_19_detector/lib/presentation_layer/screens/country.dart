@@ -1,11 +1,12 @@
-import 'package:covid_19_detector/models/country.dart';
-import 'package:covid_19_detector/models/country_summary.dart';
-import 'package:covid_19_detector/models/statistics_handler.dart';
-import 'package:covid_19_detector/screens/country_loading.dart';
-import 'package:covid_19_detector/screens/country_statistics.dart';
+import 'package:covid_19_detector/data_layer/models/country.dart';
+import 'package:covid_19_detector/data_layer/models/country_summary.dart';
+import 'package:covid_19_detector/data_layer/models/statistics_handler.dart';
+import 'package:covid_19_detector/presentation_layer/screens/country_statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart'
     show TextFieldConfiguration, TypeAheadFormField;
+
+import 'country_loading.dart';
 
 CovidHandler covidHandler = CovidHandler();
 

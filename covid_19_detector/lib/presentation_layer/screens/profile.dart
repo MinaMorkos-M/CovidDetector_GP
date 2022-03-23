@@ -1,9 +1,10 @@
-import 'package:covid_19_detector/screens/about.dart';
-import 'package:covid_19_detector/screens/preventions.dart';
-import 'package:covid_19_detector/screens/settings.dart';
-import 'package:covid_19_detector/screens/symptoms.dart';
-import 'package:covid_19_detector/screens/who_questions.dart';
-import 'package:covid_19_detector/widgets/profile_data.dart';
+
+import 'package:covid_19_detector/presentation_layer/screens/about.dart';
+import 'package:covid_19_detector/presentation_layer/screens/preventions.dart';
+import 'package:covid_19_detector/presentation_layer/screens/settings.dart';
+import 'package:covid_19_detector/presentation_layer/screens/symptoms.dart';
+import 'package:covid_19_detector/presentation_layer/screens/who_questions.dart';
+import 'package:covid_19_detector/presentation_layer/widgets/profile_data.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {

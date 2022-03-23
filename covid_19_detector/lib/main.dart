@@ -1,19 +1,11 @@
-import 'package:covid_19_detector/helpers/user_list.dart';
-import 'package:covid_19_detector/screens/home_screen.dart';
+import 'package:covid_19_detector/presentation_layer/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     
-    //MultiProvider(
-    //  providers: [
-    //    ChangeNotifierProvider(
-    //      create: (context) => Provider,
-    //    ),
-    //  ],
-    //child:
     MyApp(),
-    //),
   );
 }
 

@@ -1,4 +1,4 @@
-import 'package:covid_19_detector/widgets/settings_text.dart';
+import 'package:covid_19_detector/presentation_layer/widgets/settings_text.dart';
 import 'package:flutter/material.dart';
 
 class Settings extends StatefulWidget {

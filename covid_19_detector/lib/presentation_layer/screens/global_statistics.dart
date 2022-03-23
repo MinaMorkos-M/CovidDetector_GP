@@ -1,6 +1,6 @@
-import 'package:covid_19_detector/helpers/constants.dart';
-import 'package:covid_19_detector/models/global.dart';
-import 'package:covid_19_detector/widgets/global_build_card.dart';
+import 'package:covid_19_detector/business_logic_layer/helpers/constants.dart';
+import 'package:covid_19_detector/data_layer/models/global.dart';
+import 'package:covid_19_detector/presentation_layer/widgets/global_build_card.dart';
 import 'package:flutter/material.dart';
 
 class GlobalStatistics extends StatelessWidget {

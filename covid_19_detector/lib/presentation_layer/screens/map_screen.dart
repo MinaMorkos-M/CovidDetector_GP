@@ -1,13 +1,12 @@
 import 'dart:async';
-import 'dart:typed_data';
 import 'dart:math' show cos, sqrt, asin;
-import 'package:covid_19_detector/helpers/location_helper.dart';
-import 'package:covid_19_detector/helpers/user_list.dart';
-import 'package:covid_19_detector/models/user.dart';
+import 'package:covid_19_detector/business_logic_layer/helpers/location_helper.dart';
+import 'package:covid_19_detector/business_logic_layer/helpers/user_list.dart';
+import 'package:covid_19_detector/data_layer/models/user.dart';
+import 'package:covid_19_detector/presentation_layer/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
@@ -42,15 +41,9 @@ class _MapScreenState extends State<MapScreen> {
     return 12742 * asin(sqrt(a));
   }
 
-  /*Future<Uint8List> getMarker() async {
-    ByteData byteData = await rootBundle.load("assets/images/virus.png");
-    return byteData.buffer.asUint8List();
-  }*/
-
   getCurrentLocation() async {
     try {
-      //Uint8List imageData = await getMarker();
-      position = await LocationHelper.detectCurrentLocation().whenComplete(() {
+      position = await LocationHelper.getCurrentLocation().whenComplete(() {
         setState(() {});
       });
 
@@ -100,6 +93,12 @@ class _MapScreenState extends State<MapScreen> {
     getAllCirclesAndMarkers(Dummy.users);
   }
 
+  @override
+  dispose() {
+    super.dispose();
+    subscription!.cancel();
+  }
+
   Widget buildMap() {
     return GoogleMap(
       mapToolbarEnabled: false,
@@ -126,11 +125,11 @@ class _MapScreenState extends State<MapScreen> {
       },
       markers: allMarkers,
       circles: circles,
-      onLongPress: _addMarker,
+      //onLongPress: _addMarker,
     );
   }
 
-  void _addMarker(LatLng pos) {
+  /*void _addMarker(LatLng pos) {
     setState(() {
       Marker _destination = Marker(
         markerId: const MarkerId("Destination"),
@@ -139,6 +138,24 @@ class _MapScreenState extends State<MapScreen> {
         position: pos,
       );
     });
+  }*/
+  _refreshMyCircle() async {
+    position = await LocationHelper.getCurrentLocation().whenComplete(() {
+      setState(() {});
+    });
+    circles = Set.from(
+      [
+        Circle(
+          circleId: CircleId("Me"),
+          center: LatLng(position!.latitude, position!.longitude),
+          radius: 200,
+          strokeWidth: 1,
+          fillColor: Colors.red.withAlpha(60),
+          strokeColor: Colors.red,
+          zIndex: 1,
+        )
+      ],
+    );
   }
 
   Future<void> _goToMyCurrentLocation() async {
@@ -157,21 +174,78 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: (showButton)
-          ? FloatingActionButton(
+      extendBodyBehindAppBar: true,
+      floatingActionButton: Container(
+        margin: EdgeInsets.only(left: 30),
+        child: Row(
+          mainAxisAlignment: (showButton)
+              ? MainAxisAlignment.spaceBetween
+              : MainAxisAlignment.start,
+          children: [
+            FloatingActionButton(
+              mini: true,
               backgroundColor: Theme.of(context).primaryColor,
               child: Icon(
-                Icons.place,
+                Icons.refresh,
                 color: Colors.white,
               ),
-              onPressed: _goToMyCurrentLocation,
-            )
-          : null,
+              onPressed: _refreshMyCircle,
+            ),
+            if (showButton)
+              FloatingActionButton(
+                backgroundColor: Theme.of(context).primaryColor,
+                child: Icon(
+                  Icons.place,
+                  color: Colors.white,
+                ),
+                onPressed: _goToMyCurrentLocation,
+              ),
+          ],
+        ),
+      ),
       body: Stack(
         fit: StackFit.expand,
         children: [
           (position != null)
-              ? buildMap()
+              ? Stack(
+                  children: [
+                    LayoutBuilder(builder:
+                        (BuildContext context, BoxConstraints constraints) {
+                      return SizedBox(
+                        height: constraints.maxHeight,
+                        child: buildMap(),
+                      );
+                    }),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        child: Card(
+                          color: Colors.grey[200],
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: ListTile(
+                            title: Text(
+                              'Search a Place',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SearchScreen(),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
               : Center(
                   child: CircularProgressIndicator(
                     color: Theme.of(context).primaryColor,

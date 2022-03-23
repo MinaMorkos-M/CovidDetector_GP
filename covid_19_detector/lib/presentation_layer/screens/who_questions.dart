@@ -1,5 +1,5 @@
-import 'package:covid_19_detector/widgets/question_card.dart';
-import 'package:covid_19_detector/widgets/question_number_card.dart';
+import 'package:covid_19_detector/presentation_layer/widgets/question_card.dart';
+import 'package:covid_19_detector/presentation_layer/widgets/question_number_card.dart';
 import 'package:flutter/material.dart';
 
 class WhoQuestions extends StatefulWidget {

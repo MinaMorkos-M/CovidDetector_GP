@@ -1,6 +1,6 @@
-import 'package:covid_19_detector/screens/map_screen.dart';
-import 'package:covid_19_detector/screens/profile.dart';
-import 'package:covid_19_detector/screens/statistics.dart';
+import 'package:covid_19_detector/presentation_layer/screens/map_screen.dart';
+import 'package:covid_19_detector/presentation_layer/screens/profile.dart';
+import 'package:covid_19_detector/presentation_layer/screens/statistics.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,7 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
   static List<Widget> _pages = [
     Profile(),
     MapScreen(),
-    //Maps(),
     Statistics(),
   ];
   @override

@@ -1,4 +1,4 @@
-import 'package:covid_19_detector/widgets/profile_text.dart';
+import 'package:covid_19_detector/presentation_layer/widgets/profile_text.dart';
 import 'package:flutter/material.dart';
 
 class ProfileContainer extends StatelessWidget {

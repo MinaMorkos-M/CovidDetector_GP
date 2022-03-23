@@ -1,4 +1,4 @@
-import 'package:covid_19_detector/helpers/constants.dart';
+import 'package:covid_19_detector/business_logic_layer/helpers/constants.dart';
 import 'package:flutter/material.dart';
 
 class NavigationOption extends StatelessWidget {
