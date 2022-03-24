@@ -6,6 +6,7 @@ class User {
   String? email;
   String? password;
   String? phone;
+  bool infected;
   double lng;
   double lat;
 
@@ -15,6 +16,7 @@ class User {
     required this.username,
     required this.email,
     required this.phone,
+    required this.infected,
     required this.lat,
     required this.lng,
   });

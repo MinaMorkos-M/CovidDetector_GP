@@ -4,8 +4,10 @@ import 'package:covid_19_detector/business_logic_layer/helpers/location_helper.d
 import 'package:covid_19_detector/business_logic_layer/helpers/user_list.dart';
 import 'package:covid_19_detector/data_layer/models/user.dart';
 import 'package:covid_19_detector/presentation_layer/screens/search_screen.dart';
+import 'package:covid_19_detector/presentation_layer/widgets/map_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -69,20 +71,26 @@ class _MapScreenState extends State<MapScreen> {
     }
   }
 
-  getAllCirclesAndMarkers(List<User> users) async {
+  getAllMarkers(List<User> users) {
     for (int i = 0; i < users.length; i++) {
-      LatLng userPosition = LatLng(
-        users[i].lat,
-        users[i].lng,
-      );
-      Marker marker = Marker(
-        markerId: MarkerId("Me"),
-        position: userPosition,
-        flat: true,
-        draggable: false,
-        zIndex: 2,
-      );
-      allMarkers.add(marker);
+      if (users[i].infected == true) {
+        LatLng userPosition = LatLng(
+          users[i].lat,
+          users[i].lng,
+        );
+        if(true){ //TODO:if distance is less than 0.2 km
+          Marker marker = Marker(
+          markerId: MarkerId("Infected"),
+          position: userPosition,
+          flat: true,
+          draggable: false,
+          zIndex: 2,
+        );
+        allMarkers.add(marker);
+        }
+        
+      } else
+        continue;
     }
   }
 
@@ -90,7 +98,7 @@ class _MapScreenState extends State<MapScreen> {
   initState() {
     super.initState();
     getCurrentLocation();
-    getAllCirclesAndMarkers(Dummy.users);
+    getAllMarkers(Dummy.users);
   }
 
   @override
@@ -174,6 +182,8 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: MapBottomBar(),
+      resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
       floatingActionButton: Container(
         margin: EdgeInsets.only(left: 30),

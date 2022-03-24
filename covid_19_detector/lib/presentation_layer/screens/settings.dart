@@ -40,6 +40,7 @@ class _SettingsState extends State<Settings> {
               onChanged: (bool value) {
                 setState(() {
                   this.darkSwitchValue = value;
+                  
                 });
               },
             ),
