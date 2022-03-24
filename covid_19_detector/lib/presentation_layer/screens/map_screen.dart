@@ -183,7 +183,6 @@ class _MapScreenState extends State<MapScreen> {
               : MainAxisAlignment.start,
           children: [
             FloatingActionButton(
-              mini: true,
               backgroundColor: Theme.of(context).primaryColor,
               child: Icon(
                 Icons.refresh,
