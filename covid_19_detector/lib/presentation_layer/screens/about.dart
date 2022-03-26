@@ -1,4 +1,4 @@
-import 'package:covid_19_detector/business_logic_layer/helpers/constants.dart';
+import 'package:covid_19_detector/business_logic_layer/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
 

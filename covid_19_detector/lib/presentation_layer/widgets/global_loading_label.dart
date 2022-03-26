@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-class GlobalLoadingLabel extends StatelessWidget {
-  const GlobalLoadingLabel({Key? key}) : super(key: key);
+class LoadingLabel extends StatelessWidget {
+  const LoadingLabel({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

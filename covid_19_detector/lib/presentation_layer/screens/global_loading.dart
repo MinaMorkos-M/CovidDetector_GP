@@ -11,7 +11,7 @@ class GlobalLoading extends StatelessWidget {
         GlobalLoadingCard(),
         GlobalLoadingCard(),
         GlobalLoadingCard(),
-        GlobalLoadingLabel(),
+        LoadingLabel(),
       ],
     );
   }

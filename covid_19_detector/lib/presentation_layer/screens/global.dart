@@ -1,7 +1,8 @@
 import 'package:covid_19_detector/data_layer/models/global.dart';
-import 'package:covid_19_detector/data_layer/models/statistics_handler.dart';
+import 'package:covid_19_detector/business_logic_layer/helpers/statistics_handler.dart';
 import 'package:covid_19_detector/presentation_layer/screens/global_loading.dart';
 import 'package:covid_19_detector/presentation_layer/screens/global_statistics.dart';
+import 'package:covid_19_detector/presentation_layer/widgets/error_card.dart';
 import 'package:flutter/material.dart';
 
 CovidHandler covidHandler = CovidHandler();
@@ -59,10 +60,7 @@ class _GlobalState extends State<Global> {
         FutureBuilder(
           future: summary,
           builder: (context, snapshot) {
-            if (snapshot.hasError)
-              return Center(
-                child: Text('Error'),
-              );
+            if (snapshot.hasError) return ErrorCard();
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
                 return GlobalLoading();

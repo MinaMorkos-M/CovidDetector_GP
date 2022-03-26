@@ -1,13 +1,12 @@
 import 'dart:async';
 import 'dart:math' show cos, sqrt, asin;
 import 'package:covid_19_detector/business_logic_layer/helpers/location_helper.dart';
-import 'package:covid_19_detector/business_logic_layer/helpers/user_list.dart';
+import 'package:covid_19_detector/business_logic_layer/user_list.dart';
 import 'package:covid_19_detector/data_layer/models/user.dart';
 import 'package:covid_19_detector/presentation_layer/screens/search_screen.dart';
 import 'package:covid_19_detector/presentation_layer/widgets/map_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -78,17 +77,17 @@ class _MapScreenState extends State<MapScreen> {
           users[i].lat,
           users[i].lng,
         );
-        if(true){ //TODO:if distance is less than 0.2 km
+        if (true) {
+          //TODO:if distance is less than 0.2 km
           Marker marker = Marker(
-          markerId: MarkerId("Infected"),
-          position: userPosition,
-          flat: true,
-          draggable: false,
-          zIndex: 2,
-        );
-        allMarkers.add(marker);
+            markerId: MarkerId("Infected"),
+            position: userPosition,
+            flat: true,
+            draggable: false,
+            zIndex: 2,
+          );
+          allMarkers.add(marker);
         }
-        
       } else
         continue;
     }
@@ -99,12 +98,6 @@ class _MapScreenState extends State<MapScreen> {
     super.initState();
     getCurrentLocation();
     getAllMarkers(Dummy.users);
-  }
-
-  @override
-  dispose() {
-    super.dispose();
-    subscription!.cancel();
   }
 
   Widget buildMap() {
@@ -133,20 +126,9 @@ class _MapScreenState extends State<MapScreen> {
       },
       markers: allMarkers,
       circles: circles,
-      //onLongPress: _addMarker,
     );
   }
 
-  /*void _addMarker(LatLng pos) {
-    setState(() {
-      Marker _destination = Marker(
-        markerId: const MarkerId("Destination"),
-        infoWindow: const InfoWindow(title: "Destination"),
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow),
-        position: pos,
-      );
-    });
-  }*/
   _refreshMyCircle() async {
     position = await LocationHelper.getCurrentLocation().whenComplete(() {
       setState(() {});

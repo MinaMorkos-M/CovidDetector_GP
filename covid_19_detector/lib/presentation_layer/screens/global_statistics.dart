@@ -1,4 +1,4 @@
-import 'package:covid_19_detector/business_logic_layer/helpers/constants.dart';
+import 'package:covid_19_detector/business_logic_layer/constants.dart';
 import 'package:covid_19_detector/data_layer/models/global.dart';
 import 'package:covid_19_detector/presentation_layer/widgets/global_build_card.dart';
 import 'package:flutter/material.dart';
@@ -47,12 +47,13 @@ class GlobalStatistics extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 4, vertical: 6),
                 child: Text(
-                  "Statistics updated ",
+                  "Statistics updated due to covidtracking.com",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                   ),
+                  textAlign: TextAlign.center,
                 ),
               ),
             ],

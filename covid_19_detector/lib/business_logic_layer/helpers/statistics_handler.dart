@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:covid_19_detector/data_layer/models/global.dart';
 
-import '../models/country_summary.dart';
-import '../models/country.dart';
+import '../../data_layer/models/country_summary.dart';
+import '../../data_layer/models/country.dart';
 import 'package:http/http.dart' as http;
 
 class CovidHandler {

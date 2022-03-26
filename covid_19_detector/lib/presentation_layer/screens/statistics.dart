@@ -1,4 +1,4 @@
-import 'package:covid_19_detector/business_logic_layer/helpers/constants.dart';
+import 'package:covid_19_detector/business_logic_layer/constants.dart';
 import 'package:covid_19_detector/presentation_layer/screens/country.dart';
 import 'package:covid_19_detector/presentation_layer/screens/global.dart';
 import 'package:covid_19_detector/presentation_layer/screens/navigation_option.dart';

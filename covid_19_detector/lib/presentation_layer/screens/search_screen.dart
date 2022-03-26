@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:covid_19_detector/business_logic_layer/helpers/api_keys.dart';
+import 'package:covid_19_detector/business_logic_layer/api_keys.dart';
 import 'package:covid_19_detector/presentation_layer/screens/search_map_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_place/google_place.dart';

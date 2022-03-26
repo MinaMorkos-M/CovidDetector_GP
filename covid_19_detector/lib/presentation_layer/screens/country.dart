@@ -1,7 +1,8 @@
 import 'package:covid_19_detector/data_layer/models/country.dart';
 import 'package:covid_19_detector/data_layer/models/country_summary.dart';
-import 'package:covid_19_detector/data_layer/models/statistics_handler.dart';
+import 'package:covid_19_detector/business_logic_layer/helpers/statistics_handler.dart';
 import 'package:covid_19_detector/presentation_layer/screens/country_statistics.dart';
+import 'package:covid_19_detector/presentation_layer/widgets/error_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart'
     show TextFieldConfiguration, TypeAheadFormField;
@@ -43,10 +44,7 @@ class _CountryState extends State<CountryState> {
     return FutureBuilder<List<Country>>(
       future: countryList,
       builder: (context, snapshot) {
-        if (snapshot.hasError)
-          return Center(
-            child: Text("Error"),
-          );
+        if (snapshot.hasError) return ErrorCard();
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             return CountryLoading(inputTextLoading: true);

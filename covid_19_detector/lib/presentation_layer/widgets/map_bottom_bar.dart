@@ -1,3 +1,5 @@
+import 'package:covid_19_detector/presentation_layer/screens/nearest_hospital_map.dart';
+import 'package:covid_19_detector/presentation_layer/screens/nearest_pharmacy_map.dart';
 import 'package:flutter/material.dart';
 
 class MapBottomBar extends StatefulWidget {
@@ -7,16 +9,25 @@ class MapBottomBar extends StatefulWidget {
 
 class _MapBottomBarState extends State<MapBottomBar> {
   final bool _isBottomBarNotched = false;
+  bool noneButton = true;
+  bool hospitalButton = false;
+  bool pharmacyButton = false;
 
-  final ButtonStyle againButton = ElevatedButton.styleFrom(
+  final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
     primary: Colors.grey[500],
     elevation: 5,
     minimumSize: Size(88, 50),
+    textStyle: TextStyle(
+      color: Colors.black,
+    ),
     padding: EdgeInsets.symmetric(horizontal: 16),
     shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(30)),
+      borderRadius: BorderRadius.all(
+        Radius.circular(30),
+      ),
     ),
   );
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +38,7 @@ class _MapBottomBarState extends State<MapBottomBar> {
         children: [
           IconButton(
             icon: const Icon(
-              Icons.menu,
+              Icons.local_hospital_outlined,
               color: Colors.white,
             ),
             onPressed: () => showModalBottomSheet(
@@ -50,38 +61,39 @@ class _MapBottomBarState extends State<MapBottomBar> {
                     ),
                     Container(
                       margin: EdgeInsets.only(top: 10),
-                      child: Row(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 50),
-                            child: ElevatedButton(
-                              style: againButton,
-                              child: Text(
-                                'Hospital',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              onPressed: () {
-                                setState(() {});
-                              },
+                          ListTile(
+                            leading: Icon(
+                              Icons.local_hospital,
                             ),
+                            title: Text('Hospital'),
+                            trailing: Icon(Icons.keyboard_arrow_right_sharp),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => NearestHospitalMap(
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 50),
-                            child: ElevatedButton(
-                              style: againButton,
-                              child: Text(
-                                'Pharmacy',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              onPressed: () {
-                                setState(() {});
-                              },
+                          ListTile(
+                            leading: Icon(
+                              Icons.local_pharmacy,
                             ),
+                            title: Text('Pharmacy'),
+                            trailing: Icon(Icons.keyboard_arrow_right_sharp),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => NearestPharmacyMap(),
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
