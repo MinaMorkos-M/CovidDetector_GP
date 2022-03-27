@@ -22,7 +22,7 @@ class _SearchMapScreenState extends State<SearchMapScreen> {
   PolylinePoints polylinePoints = PolylinePoints();
   late Circle circle;
   @override
-  void initState() {
+  initState() {
     super.initState();
     _initialPosition = CameraPosition(
       target: LatLng(

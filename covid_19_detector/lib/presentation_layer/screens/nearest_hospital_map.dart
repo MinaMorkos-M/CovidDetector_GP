@@ -19,6 +19,7 @@ class _NearestHospitalMapState extends State<NearestHospitalMap> {
   bool showButton = false;
   Set<Marker> markers = {};
   Completer<GoogleMapController> _mapController = Completer();
+  // ignore: cancel_subscriptions
   StreamSubscription? subscription;
   static CameraPosition _myCurrentlocationCameraPosition = CameraPosition(
     bearing: 0.0,
@@ -26,6 +27,7 @@ class _NearestHospitalMapState extends State<NearestHospitalMap> {
     tilt: 0.0,
     zoom: 15,
   );
+
   Future<List<Place>> getPlaces(double lat, double lng) async {
     var url =
         'https://maps.googleapis.com/maps/api/place/textsearch/json?location=$lat,$lng&type=hospital&rankby=distance&key=${ApiKeys.googleMaps}';
@@ -35,8 +37,8 @@ class _NearestHospitalMapState extends State<NearestHospitalMap> {
     return jsonResults.map((place) => Place.fromJson(place)).toList();
   }
 
-  setMarkers(Future<List<Place>> places) async {
-    List<Place> places =
+  Future<void> setMarkers(List<Place> places) async {
+    final List<Place> places =
         await getPlaces(position!.latitude, position!.longitude);
     if (places.length > 0) {
       Marker marker = Marker(
@@ -49,15 +51,19 @@ class _NearestHospitalMapState extends State<NearestHospitalMap> {
         draggable: false,
         zIndex: 2,
       );
-      markers.add(marker);
+      setState(() {
+        markers.add(marker);
+      });
     }
     setState(() {});
   }
 
-  getNearestHospital() {
-    Future<List<Place>> places =
-        getPlaces(position!.latitude, position!.longitude);
-    setMarkers(places);
+  getNearestHospital() async {
+    final List<Place> places =
+        await getPlaces(position!.latitude, position!.longitude);
+    setState(() {
+      setMarkers(places);
+    });
   }
 
   getCurrentLocation() async {
@@ -88,10 +94,16 @@ class _NearestHospitalMapState extends State<NearestHospitalMap> {
   }
 
   @override
-  void initState() {
+  initState() {
     super.initState();
     getCurrentLocation();
     getNearestHospital();
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+    subscription!.cancel();
   }
 
   @override
@@ -108,37 +120,35 @@ class _NearestHospitalMapState extends State<NearestHospitalMap> {
       appBar: AppBar(
         title: Text('Nearest Hospital'),
       ),
-      body: SafeArea(
-        child: (position != null)
-            ? GoogleMap(
-                markers: markers,
-                zoomControlsEnabled: false,
-                myLocationButtonEnabled: false,
-                myLocationEnabled: true,
-                initialCameraPosition: _myCurrentlocationCameraPosition,
-                onMapCreated: (GoogleMapController mapController) {
-                  _mapController.complete(mapController);
-                },
-                onCameraMove: (position) {
-                  if (_myCurrentlocationCameraPosition == position &&
-                      showButton == true) {
-                    setState(() {
-                      showButton = false;
-                    });
-                  } else if (_myCurrentlocationCameraPosition != position &&
-                      showButton == false) {
-                    setState(() {
-                      showButton = true;
-                    });
-                  }
-                },
-              )
-            : Center(
-                child: CircularProgressIndicator(
-                  color: Theme.of(context).primaryColor,
-                ),
+      body: (position != null)
+          ? GoogleMap(
+              markers: markers,
+              zoomControlsEnabled: false,
+              myLocationButtonEnabled: false,
+              myLocationEnabled: true,
+              initialCameraPosition: _myCurrentlocationCameraPosition,
+              onMapCreated: (GoogleMapController mapController) {
+                _mapController.complete(mapController);
+              },
+              onCameraMove: (position) {
+                if (_myCurrentlocationCameraPosition == position &&
+                    showButton == true) {
+                  setState(() {
+                    showButton = false;
+                  });
+                } else if (_myCurrentlocationCameraPosition != position &&
+                    showButton == false) {
+                  setState(() {
+                    showButton = true;
+                  });
+                }
+              },
+            )
+          : Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).primaryColor,
               ),
-      ),
+            ),
     );
   }
 }

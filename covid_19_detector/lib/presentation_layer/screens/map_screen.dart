@@ -19,6 +19,7 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  // ignore: cancel_subscriptions
   StreamSubscription? subscription;
   bool showButton = false;
   static Set<Circle> circles = {};
@@ -98,6 +99,12 @@ class _MapScreenState extends State<MapScreen> {
     super.initState();
     getCurrentLocation();
     getAllMarkers(Dummy.users);
+  }
+  
+  @override
+  dispose() {
+    super.dispose();
+    subscription!.cancel();
   }
 
   Widget buildMap() {
