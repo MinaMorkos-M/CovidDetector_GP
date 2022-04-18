@@ -100,7 +100,7 @@ class _MapScreenState extends State<MapScreen> {
     getCurrentLocation();
     getAllMarkers(Dummy.users);
   }
-  
+
   @override
   dispose() {
     super.dispose();
