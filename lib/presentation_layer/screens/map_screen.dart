@@ -48,7 +48,7 @@ class _MapScreenState extends State<MapScreen> {
     permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied)
       {
-        print("access denied");
+        print("access denied from user");
       }
     else {
       try {
