@@ -12,6 +12,7 @@ class Dummy {
       infected: true,
       lat: 30.077291,
       lng: 31.242953,
+      uid: "123123123"
     ),
     User(
       //alex
@@ -23,6 +24,7 @@ class Dummy {
       infected: true,
       lat: 31.242767,
       lng: 30.077209,
+      uid: "123123"
     ),
     User(
       //shoubra
@@ -34,6 +36,7 @@ class Dummy {
       infected: true,
       lat: 30.077209,
       lng: 31.242767,
+      uid: "312323",
     ),
     User(
       //alex
@@ -45,6 +48,7 @@ class Dummy {
       infected: true,
       lat: 31.244246,
       lng: 30.075191,
+      uid: "23123123",
     ),
     User(
       //alex
@@ -56,6 +60,7 @@ class Dummy {
       infected: false,
       lat: 31.210609,
       lng: 30.031123,
+      uid: "12312312",
     ),
   ];
 }

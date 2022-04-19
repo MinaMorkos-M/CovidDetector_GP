@@ -1,6 +1,7 @@
 
 class User {
   int? id;
+
   String? name;
   String? username;
   String? email;
@@ -9,6 +10,7 @@ class User {
   bool infected;
   double lng;
   double lat;
+  String uid;
 
   User({
     required this.id,
@@ -19,9 +21,36 @@ class User {
     required this.infected,
     required this.lat,
     required this.lng,
+    required this.uid
+
   });
 
-  /*.fromJson(Map<String, dynamic> json) {
+
+  // receiving data from server
+  factory User.fromMap(map) {
+    return User(
+        uid: map['uid'],
+        email: map['email'],
+        name: map['name'],
+        id: map['id'],
+        infected: map['infected'],
+        lat: map['lat'],
+        lng: map['lng'],
+        phone: map['phone'],
+        username: map['username']
+    );
+  }
+
+  // sending data to our server
+  Map<String, dynamic> toMap() {
+    return {
+      'uid': uid,
+      'email': email,
+      'name': name,
+    };
+
+
+    /*.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     username = json['username'];
@@ -40,4 +69,5 @@ class User {
 
     return data;
   }*/
+  }
 }
