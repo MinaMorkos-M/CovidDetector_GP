@@ -112,7 +112,9 @@ class _MapScreenState extends State<MapScreen> {
   @override
   dispose() {
     super.dispose();
-    subscription!.cancel();
+    if (subscription != null) {
+      subscription!.cancel();
+    }
   }
 
   Widget buildMap() {
