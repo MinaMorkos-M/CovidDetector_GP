@@ -44,30 +44,38 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   getCurrentLocation() async {
-    try {
-      position = await LocationHelper.getCurrentLocation().whenComplete(() {
-        setState(() {});
-      });
-
-      circles = Set.from(
-        [
-          Circle(
-            circleId: CircleId("Me"),
-            center: LatLng(position!.latitude, position!.longitude),
-            radius: 200,
-            strokeWidth: 1,
-            fillColor: Colors.red.withAlpha(60),
-            strokeColor: Colors.red,
-            zIndex: 1,
-          )
-        ],
-      );
-
-      if (subscription != null) {
-        subscription!.cancel();
+    LocationPermission permission;
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied)
+      {
+        print("access denied");
       }
-    } on PlatformException catch (e) {
-      print(e.message);
+    else {
+      try {
+        position = await LocationHelper.getCurrentLocation().whenComplete(() {
+          setState(() {});
+        });
+
+        circles = Set.from(
+          [
+            Circle(
+              circleId: CircleId("Me"),
+              center: LatLng(position!.latitude, position!.longitude),
+              radius: 200,
+              strokeWidth: 1,
+              fillColor: Colors.red.withAlpha(60),
+              strokeColor: Colors.red,
+              zIndex: 1,
+            )
+          ],
+        );
+
+        if (subscription != null) {
+          subscription!.cancel();
+        }
+      } on PlatformException catch (e) {
+        print(e.message);
+      }
     }
   }
 
