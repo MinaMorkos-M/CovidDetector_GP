@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "395722911648",
+    "project_id": "covid19detector-db429",
+    "storage_bucket": "covid19detector-db429.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:395722911648:android:ab80799539603c55647ec5",
+        "android_client_info": {
+          "package_name": "com.example.covid_19_detector"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "395722911648-reitsl6eqcmf6s85ult20eb6t1fji2p0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJ4122UM9M0A5k9tG68EeVtt7GbjeKXCM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "395722911648-reitsl6eqcmf6s85ult20eb6t1fji2p0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

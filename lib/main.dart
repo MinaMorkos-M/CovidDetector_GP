@@ -1,8 +1,9 @@
 import 'package:covid_19_detector/presentation_layer/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     MyApp(),
   );
