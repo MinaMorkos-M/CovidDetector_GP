@@ -1,13 +1,16 @@
 
 import 'package:covid_19_detector/presentation_layer/screens/about.dart';
+import 'package:covid_19_detector/presentation_layer/screens/login_screen.dart';
 import 'package:covid_19_detector/presentation_layer/screens/preventions.dart';
 import 'package:covid_19_detector/presentation_layer/screens/settings.dart';
 import 'package:covid_19_detector/presentation_layer/screens/symptoms.dart';
 import 'package:covid_19_detector/presentation_layer/screens/who_questions.dart';
 import 'package:covid_19_detector/presentation_layer/widgets/profile_data.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
+  final _auth = FirebaseAuth.instance;
   final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
     primary: Colors.red,
     elevation: 5,
@@ -139,7 +142,13 @@ class Profile extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              _auth.signOut();
+              Navigator.pushAndRemoveUntil(
+                  (context),
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                      (route) => false);
+            },
           ),
         )
       ],

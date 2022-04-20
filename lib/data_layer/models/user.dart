@@ -47,6 +47,7 @@ class User {
       'uid': uid,
       'email': email,
       'name': name,
+      'password' : password,
     };
 
 
