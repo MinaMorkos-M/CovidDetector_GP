@@ -19,6 +19,8 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+
+
   // ignore: cancel_subscriptions
   StreamSubscription? subscription;
   bool showButton = false;
@@ -44,13 +46,6 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   getCurrentLocation() async {
-    LocationPermission permission;
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied)
-      {
-        print("access denied from the user");
-      }
-    else {
       try {
         position = await LocationHelper.getCurrentLocation().whenComplete(() {
           setState(() {});
@@ -76,7 +71,7 @@ class _MapScreenState extends State<MapScreen> {
       } on PlatformException catch (e) {
         print(e.message);
       }
-    }
+
   }
 
   getAllMarkers(List<User> users) {
