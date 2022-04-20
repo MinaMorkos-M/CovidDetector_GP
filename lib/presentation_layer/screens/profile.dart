@@ -1,16 +1,27 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:covid_19_detector/presentation_layer/screens/about.dart';
 import 'package:covid_19_detector/presentation_layer/screens/login_screen.dart';
 import 'package:covid_19_detector/presentation_layer/screens/preventions.dart';
-import 'package:covid_19_detector/presentation_layer/screens/settings.dart';
+import 'package:covid_19_detector/presentation_layer/screens/settings.dart' as settings_screen;
 import 'package:covid_19_detector/presentation_layer/screens/symptoms.dart';
 import 'package:covid_19_detector/presentation_layer/screens/who_questions.dart';
 import 'package:covid_19_detector/presentation_layer/widgets/profile_data.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
+import '../../data_layer/models/user.dart';
 
-class Profile extends StatelessWidget {
-  final _auth = FirebaseAuth.instance;
+
+class Profile extends StatefulWidget {
+  @override
+  _ProfileState createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  auth.User? user = auth.FirebaseAuth.instance.currentUser;
+  User loggedInUser = User(username: "" , phone:  " " , lng: 23 , lat:  23 , infected:  true , id: 23 , name:  "" , uid: " " , email:  "");
+  final _auth = auth.FirebaseAuth.instance;
+
   final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
     primary: Colors.red,
     elevation: 5,
@@ -20,6 +31,19 @@ class Profile extends StatelessWidget {
       borderRadius: BorderRadius.all(Radius.circular(12)),
     ),
   );
+@override
+  void initState() {
+  super.initState();
+  FirebaseFirestore.instance
+      .collection("users")
+      .doc(user!.uid)
+      .get()
+      .then((value) {
+    this.loggedInUser = User.fromMap(value.data());
+    setState(() {});
+
+  }
+  );}
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -33,7 +57,7 @@ class Profile extends StatelessWidget {
                 margin: EdgeInsets.symmetric(
                   vertical: MediaQuery.of(context).size.height * 0.025,
                 ),
-                child: ProfileData('Mina Morkos', 'Cairo', 'Egypt'),
+                child: ProfileData(loggedInUser.name!, 'Cairo', 'Egypt'),
               ),
               ListTile(
                 title: Text(
@@ -101,7 +125,7 @@ class Profile extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Settings(),
+                      builder: (context) => settings_screen.Settings(),
                     ),
                   );
                 },

@@ -32,12 +32,12 @@ class User {
         uid: map['uid'],
         email: map['email'],
         name: map['name'],
-        id: map['id'],
-        infected: map['infected'],
-        lat: map['lat'],
-        lng: map['lng'],
-        phone: map['phone'],
-        username: map['username']
+        id: 1 ,
+      infected: false ,
+      lat: 2 ,
+      lng: 3 ,
+      phone: "" ,
+      username: "",
     );
   }
 
