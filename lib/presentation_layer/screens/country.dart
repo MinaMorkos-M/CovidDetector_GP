@@ -1,3 +1,4 @@
+import 'package:covid_19_detector/business_logic_layer/helpers/wrong_countries.dart';
 import 'package:covid_19_detector/data_layer/models/country.dart';
 import 'package:covid_19_detector/data_layer/models/country_summary.dart';
 import 'package:covid_19_detector/business_logic_layer/helpers/statistics_handler.dart';
@@ -39,6 +40,7 @@ class _CountryState extends State<CountryState> {
     return matches;
   }
 
+  String? suggest;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Country>>(
@@ -100,14 +102,19 @@ class _CountryState extends State<CountryState> {
                         onSuggestionSelected: (suggestion) {
                           this._typeAheadController.text =
                               suggestion.toString();
-                          setState(() {
-                            //summaryList = covidHandler.getCountrySummary((snapshot.data as String));
-                            summaryList = covidHandler.getCountrySummary(
-                                snapshot.data!
-                                    .firstWhere((element) =>
-                                        element.country == suggestion)
-                                    .slug);
-                          });
+                          suggest = suggestion.toString();
+                          if (Wrong.wrongCountries.contains(suggestion)) {
+                            // nothing to be done
+                          } else {
+                            setState(() {
+                              //summaryList = covidHandler.getCountrySummary((snapshot.data as String));
+                              summaryList = covidHandler.getCountrySummary(
+                                  snapshot.data!
+                                      .firstWhere((element) =>
+                                          element.country == suggestion)
+                                      .slug);
+                            });
+                          }
                         },
                         transitionBuilder:
                             (context, suggestionBox, controller) {
@@ -131,7 +138,7 @@ class _CountryState extends State<CountryState> {
                         builder: (context, snapshot) {
                           if (snapshot.hasError)
                             return Center(
-                              child: Text("Error"),
+                              child: ErrorCard(),
                             );
                           switch (snapshot.connectionState) {
                             case ConnectionState.waiting:
