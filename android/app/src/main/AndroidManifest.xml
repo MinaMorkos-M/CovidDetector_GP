@@ -9,7 +9,7 @@
         android:label="Covid Detector"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyAfyUgwsCiT9U9TBujrplHU6CCl-rKXdAc"/>
+               android:value="AIzaSyD84QxiBuyrNMAv_sI5uwprZfafDeQo9X0"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

@@ -6,7 +6,7 @@ const APP_DESCRIPTION =
     'An application showing the danger of corona virus in each area.'
     '\n\nDeveloped by Mina Morkos, Omar Shokry, Mayar El-hussieny, Esraa Ahmed and Abdelrahman Mohamed ';
 const GITHUB_URL =
-    'https://github.com/MinaMorkos-M/CovidDetector_GP/tree/main/covid_19_detector';
+    'https://github.com/MinaMorkos-M/CovidDetector_GP';
 
 Color kPrimaryColor = Color(0xFF166DE0);
 Color kConfirmedColor = Color(0xFFFF1242);
