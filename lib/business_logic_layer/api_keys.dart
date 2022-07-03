@@ -1,3 +1,3 @@
 class ApiKeys{
-  static String googleMaps = 'AIzaSyAfyUgwsCiT9U9TBujrplHU6CCl-rKXdAc';
+  static String googleMaps = 'AIzaSyD84QxiBuyrNMAv_sI5uwprZfafDeQo9X0';
 }
