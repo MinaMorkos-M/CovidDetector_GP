@@ -1,9 +1,10 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:covid_19_detector/business_logic_layer/helpers/storageservices.dart';
 import 'package:covid_19_detector/presentation_layer/screens/about.dart';
 import 'package:covid_19_detector/presentation_layer/screens/login_screen.dart';
 import 'package:covid_19_detector/presentation_layer/screens/preventions.dart';
-import 'package:covid_19_detector/presentation_layer/screens/settings.dart' as settings_screen;
+import 'package:covid_19_detector/presentation_layer/screens/settings.dart'
+    as settings_screen;
 import 'package:covid_19_detector/presentation_layer/screens/symptoms.dart';
 import 'package:covid_19_detector/presentation_layer/screens/who_questions.dart';
 import 'package:covid_19_detector/presentation_layer/widgets/profile_data.dart';
@@ -11,15 +12,90 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import '../../data_layer/models/user.dart';
 
-
 class Profile extends StatefulWidget {
+  int numberOfSymptoms = 0;
+  int numberOfPreventions = 0;
+
   @override
   _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
+  final storageService = StorageServices();
+
+  Future<List<String>> getSymptomsURL() async {
+    List<String> urls = [];
+    var url;
+    for (int i = 1; i < widget.numberOfSymptoms + 1; i++) {
+      url = await storageService.downloadURL('symptoms/${i}.jpg');
+
+      urls.add(url);
+    }
+
+    return urls;
+  }
+
+  Future<List<String>> getPreventionsURL() async {
+    List<String> urls = [];
+    var url;
+    for (int i = 1; i < widget.numberOfPreventions + 1; i++) {
+      url = await storageService.downloadURL('preventions/${i}.jpg');
+
+      urls.add(url);
+    }
+
+    return urls;
+  }
+
+  Future<List<String>> getSymptomsTitles() async {
+    List<String> titles = [];
+    var title;
+
+    await FirebaseFirestore.instance
+        .collection("symptoms")
+        .doc("titles")
+        .get()
+        .then((value) async {
+      var result = value.data();
+      widget.numberOfSymptoms = result!['number'];
+      for (int i = 1; i < result['number'] + 1; i++) {
+        title = result['symp${i}'];
+        titles.add(title);
+      }
+    });
+    return titles;
+  }
+
+  Future<List<String>> getPreventionsTitles() async {
+    List<String> titles = [];
+    var title;
+
+    await FirebaseFirestore.instance
+        .collection("preventions")
+        .doc("titles")
+        .get()
+        .then((value) async {
+      var result = value.data();
+      widget.numberOfPreventions = result!['number'];
+      for (int i = 1; i < result['number'] + 1; i++) {
+        title = result['prevention${i}'];
+        titles.add(title);
+      }
+    });
+    return titles;
+  }
+
   auth.User? user = auth.FirebaseAuth.instance.currentUser;
-  User loggedInUser = User(username: "" , phone:  " " , lng: 23 , lat:  23 , infected:  true , id: 23 , name:  "" , uid: " " , email:  "");
+  User loggedInUser = User(
+      username: "",
+      phone: " ",
+      lng: 23,
+      lat: 23,
+      infected: true,
+      id: 23,
+      name: "",
+      uid: " ",
+      email: "");
   final _auth = auth.FirebaseAuth.instance;
 
   final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
@@ -31,19 +107,19 @@ class _ProfileState extends State<Profile> {
       borderRadius: BorderRadius.all(Radius.circular(12)),
     ),
   );
-@override
+  @override
   void initState() {
-  super.initState();
-  FirebaseFirestore.instance
-      .collection("users")
-      .doc(user!.uid)
-      .get()
-      .then((value) {
-    this.loggedInUser = User.fromMap(value.data());
-    setState(() {});
-
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      this.loggedInUser = User.fromMap(value.data());
+      setState(() {});
+    });
   }
-  );}
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -67,11 +143,14 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 trailing: Icon(Icons.keyboard_arrow_right_sharp),
-                onTap: () {
+                onTap: () async {
+                  List<String> titles = await getSymptomsTitles();
+                  List<String> url = await getSymptomsURL();
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Symptoms(),
+                      builder: (context) => Symptoms(url: url, titles: titles),
                     ),
                   );
                 },
@@ -85,11 +164,14 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 trailing: Icon(Icons.keyboard_arrow_right_sharp),
-                onTap: () {
+                onTap: () async {
+                  List<String> titles = await getPreventionsTitles();
+                  List<String> url = await getPreventionsURL();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Preventions(),
+                      builder: (context) =>
+                          Preventions(url: url, titles: titles),
                     ),
                   );
                 },
@@ -171,7 +253,7 @@ class _ProfileState extends State<Profile> {
               Navigator.pushAndRemoveUntil(
                   (context),
                   MaterialPageRoute(builder: (context) => LoginScreen()),
-                      (route) => false);
+                  (route) => false);
             },
           ),
         )

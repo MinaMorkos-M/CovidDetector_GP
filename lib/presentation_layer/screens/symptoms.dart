@@ -1,23 +1,22 @@
+import 'package:covid_19_detector/business_logic_layer/helpers/storageservices.dart';
 import 'package:flutter/material.dart';
 import 'package:page_indicator/page_indicator.dart';
 
-class Symptoms extends StatelessWidget {
-  final List<String> images = [
-    'assets/images/symptoms/weakness.jpg',
-    'assets/images/symptoms/cough.jpg',
-    'assets/images/symptoms/fatigue.jpg',
-    'assets/images/symptoms/fever.jpg',
-    'assets/images/symptoms/stuffy_nose.jpg',
-    'assets/images/symptoms/shortness_of_breath.jpg'
-  ];
-  final List<String> imageDescription = [
-    'Weakness and drowsiness',
-    'Cough',
-    'Fatigue',
-    'Fever',
-    'Runny nose',
-    'Shortness of breath'
-  ];
+class Symptoms extends StatefulWidget {
+  final List<String> url;
+  final List<String> titles;
+  Symptoms({required this.url, required this.titles});
+  @override
+  _SymptomsState createState() => _SymptomsState();
+}
+
+class _SymptomsState extends State<Symptoms> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,15 +39,12 @@ class Symptoms extends StatelessWidget {
                   Container(
                     height: MediaQuery.of(context).size.height * 0.5,
                     width: MediaQuery.of(context).size.width,
-                    child: Image.asset(
-                      images[index],
-                      fit: BoxFit.cover,
-                    ),
+                    child: Image.network(widget.url[index]),
                   ),
                   Expanded(
                     child: Center(
                       child: Text(
-                        imageDescription[index],
+                        widget.titles[index],
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 20,
