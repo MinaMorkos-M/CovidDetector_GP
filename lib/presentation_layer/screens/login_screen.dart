@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -13,8 +12,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
-
   // form key
   final _formKey = GlobalKey<FormState>();
 
@@ -51,10 +48,17 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.mail),
+          prefixIcon: Icon(
+            Icons.mail,
+            color: Colors.green,
+          ),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Email",
           border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.green),
             borderRadius: BorderRadius.circular(10),
           ),
         ));
@@ -78,10 +82,17 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.vpn_key),
+          prefixIcon: Icon(
+            Icons.vpn_key,
+            color: Colors.green,
+          ),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Password",
           border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.green),
             borderRadius: BorderRadius.circular(10),
           ),
         ));
@@ -89,13 +100,10 @@ class _LoginScreenState extends State<LoginScreen> {
     final loginButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
-      color: Colors.redAccent,
+      color: Colors.green[500],
       child: MaterialButton(
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          minWidth: MediaQuery
-              .of(context)
-              .size
-              .width,
+          minWidth: MediaQuery.of(context).size.width,
           onPressed: () {
             signIn(emailController.text, passwordController.text);
           },
@@ -114,20 +122,19 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Container(
             color: Colors.white,
             child: Padding(
-              padding: const EdgeInsets.all(36.0),
+              padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
               child: Form(
                 key: _formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(
-                        height: 200,
+                    Container(
+                        height: 300,
                         child: Image.asset(
-                          "assets/images/Logo2.jpg",
-                          fit: BoxFit.contain,
+                          "assets/images/Logo.png",
+                          fit: BoxFit.fill,
                         )),
-                    SizedBox(height: 45),
                     emailField,
                     SizedBox(height: 25),
                     passwordField,
@@ -149,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Text(
                               "SignUp",
                               style: TextStyle(
-                                  color: Colors.redAccent,
+                                  color: Colors.green[500],
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15),
                             ),
@@ -171,12 +178,11 @@ class _LoginScreenState extends State<LoginScreen> {
       try {
         await _auth
             .signInWithEmailAndPassword(email: email, password: password)
-            .then((uid) =>
-        {
-          Fluttertoast.showToast(msg: "Login Successful"),
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => HomeScreen())),
-        });
+            .then((uid) => {
+                  Fluttertoast.showToast(msg: "Login Successful"),
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => HomeScreen())),
+                });
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
           case "invalid-email":

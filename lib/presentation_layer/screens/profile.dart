@@ -85,21 +85,44 @@ class _ProfileState extends State<Profile> {
     return titles;
   }
 
+  Future<List<String>> getQuestions() async {
+    List<String> titles = [];
+    var title;
+
+    await FirebaseFirestore.instance
+        .collection("who")
+        .doc("titles")
+        .get()
+        .then((value) async {
+      var result = value.data();
+      widget.numberOfPreventions = result!['number'];
+      for (int i = 1; i < result['number'] + 1; i++) {
+        title = result['who${i}'];
+        titles.add(title);
+      }
+    });
+    return titles;
+  }
+
   auth.User? user = auth.FirebaseAuth.instance.currentUser;
   User loggedInUser = User(
+      city: "",
+      state: "",
+      country: "",
+      password: "",
       username: "",
       phone: " ",
-      lng: 23,
-      lat: 23,
-      infected: true,
-      id: 23,
+      lng: 0,
+      lat: 0,
+      infected: false,
+      id: 0,
       name: "",
       uid: " ",
       email: "");
   final _auth = auth.FirebaseAuth.instance;
 
   final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
-    primary: Colors.red,
+    primary: Colors.green,
     elevation: 5,
     minimumSize: Size(88, 36),
     padding: EdgeInsets.symmetric(horizontal: 16),
@@ -107,9 +130,23 @@ class _ProfileState extends State<Profile> {
       borderRadius: BorderRadius.all(Radius.circular(12)),
     ),
   );
+
+  double getLongitude() {
+    return this.loggedInUser.lng;
+  }
+
+  double getLatitude() {
+    return this.loggedInUser.lat;
+  }
+
+  bool getInfected() {
+    return this.loggedInUser.infected;
+  }
+
   @override
   void initState() {
     super.initState();
+    print("here");
     FirebaseFirestore.instance
         .collection("users")
         .doc(user!.uid)
@@ -142,7 +179,10 @@ class _ProfileState extends State<Profile> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                trailing: Icon(Icons.keyboard_arrow_right_sharp),
+                trailing: Icon(
+                  Icons.keyboard_arrow_right_sharp,
+                  color: Colors.green,
+                ),
                 onTap: () async {
                   List<String> titles = await getSymptomsTitles();
                   List<String> url = await getSymptomsURL();
@@ -163,7 +203,10 @@ class _ProfileState extends State<Profile> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                trailing: Icon(Icons.keyboard_arrow_right_sharp),
+                trailing: Icon(
+                  Icons.keyboard_arrow_right_sharp,
+                  color: Colors.green,
+                ),
                 onTap: () async {
                   List<String> titles = await getPreventionsTitles();
                   List<String> url = await getPreventionsURL();
@@ -184,12 +227,19 @@ class _ProfileState extends State<Profile> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                trailing: Icon(Icons.keyboard_arrow_right_sharp),
-                onTap: () {
+                trailing: Icon(
+                  Icons.keyboard_arrow_right_sharp,
+                  color: Colors.green,
+                ),
+                onTap: () async {
+                  List<String> questions = await getQuestions();
+                  print(loggedInUser.lng);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => WhoQuestions(),
+                      builder: (context) => WhoQuestions(
+                        questions: questions,
+                      ),
                     ),
                   );
                 },
@@ -202,12 +252,21 @@ class _ProfileState extends State<Profile> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                trailing: Icon(Icons.keyboard_arrow_right_sharp),
+                trailing: Icon(
+                  Icons.keyboard_arrow_right_sharp,
+                  color: Colors.green,
+                ),
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => settings_screen.Settings(),
+                      builder: (context) => settings_screen.Settings(
+                        infectedValue: this.loggedInUser.infected,
+                        name: this.loggedInUser.name!,
+                        country: this.loggedInUser.country,
+                        city: this.loggedInUser.city,
+                        state: this.loggedInUser.state,
+                      ),
                     ),
                   );
                 },
@@ -220,7 +279,10 @@ class _ProfileState extends State<Profile> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                trailing: Icon(Icons.keyboard_arrow_right_sharp),
+                trailing: Icon(
+                  Icons.keyboard_arrow_right_sharp,
+                  color: Colors.green,
+                ),
                 onTap: () {
                   Navigator.push(
                     context,

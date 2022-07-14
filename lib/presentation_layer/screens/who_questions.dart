@@ -3,6 +3,8 @@ import 'package:covid_19_detector/presentation_layer/widgets/question_number_car
 import 'package:flutter/material.dart';
 
 class WhoQuestions extends StatefulWidget {
+  List<String> questions;
+  WhoQuestions({required this.questions});
   @override
   _WhoQuestionsState createState() => _WhoQuestionsState();
 }
@@ -10,15 +12,6 @@ class WhoQuestions extends StatefulWidget {
 class _WhoQuestionsState extends State<WhoQuestions> {
   int yesCounter = 0;
   int questionNumber = 0;
-
-  List<String> questions = [
-    'Are you not vaccinated against COVID-19?',
-    'Do you have any of these life-threatening symptoms? ex. Trouble breathing, Persistent pain or pressure in the chest, Inability to wake or stay awake',
-    'In the last two weeks, have you been in close contact with someone who has COVID-19?',
-    'In the last 10 days, have you been tested for the coronavirus that causes COVID-19?',
-    'In the last 10 days, have you experienced any of the symptoms? ex. Fever or feeling feverish, Cough, Mild or moderate difficulty breathing, Muscle aches or body aches, or Headache',
-    'In the last two weeks, have you worked or volunteered in a healthcare facility or as a first responder? Healthcare facilities include a hospital, medical or dental clinic, long-term care facility, or nursing home.',
-  ];
 
   final ButtonStyle yesButtton = ElevatedButton.styleFrom(
     primary: Colors.green,
@@ -55,6 +48,7 @@ class _WhoQuestionsState extends State<WhoQuestions> {
     return Scaffold(
       appBar: AppBar(
         title: Text('WHO Questions'),
+        backgroundColor: Colors.green[800],
       ),
       body: Center(
         child: (questionNumber < 6)
@@ -66,7 +60,7 @@ class _WhoQuestionsState extends State<WhoQuestions> {
                     child: QuestionNumberCard(questionNumber),
                   ),
                   QuestionCard(
-                    questions[questionNumber],
+                    widget.questions[questionNumber],
                   ),
                   Container(
                     margin: EdgeInsets.only(bottom: 15),

@@ -14,6 +14,7 @@ class _PreventionsState extends State<Preventions> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.green[800],
         title: Text('Preventions'),
       ),
       body: Container(
@@ -22,7 +23,7 @@ class _PreventionsState extends State<Preventions> {
         child: PageIndicatorContainer(
           shape: IndicatorShape.circle(size: 10),
           indicatorColor: Colors.black,
-          indicatorSelectorColor: Theme.of(context).primaryColor,
+          indicatorSelectorColor: Colors.green,
           length: 6,
           child: PageView.builder(
             itemCount: 6,

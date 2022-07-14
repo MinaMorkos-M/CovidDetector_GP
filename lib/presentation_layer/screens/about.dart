@@ -9,6 +9,7 @@ class About extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.green[800],
         title: Text('About'),
       ),
       body: Column(

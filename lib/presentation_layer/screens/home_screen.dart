@@ -11,7 +11,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -23,11 +23,12 @@ class _HomeScreenState extends State<HomeScreen> {
     MapScreen(),
     Statistics(),
   ];
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.green[800],
         title: Text(
           'Covid Detector',
           style: TextStyle(
@@ -40,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         selectedItemColor: Colors.white,
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Colors.green[800],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         items: [

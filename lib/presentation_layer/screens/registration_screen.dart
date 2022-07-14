@@ -1,9 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:covid_19_detector/business_logic_layer/helpers/location_helper.dart';
+import 'package:geolocator/geolocator.dart';
 import '../../data_layer/models/user.dart';
 import 'home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:country_state_city_picker/country_state_city_picker.dart';
+
+///Define Controller
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -18,14 +23,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   // string for displaying the error Message
   String? errorMessage;
 
-
   // our form key
   final _formKey = GlobalKey<FormState>();
   // editing Controller
+  String? countryValue;
+  String? stateValue;
+  String? cityValue;
   final firstNameEditingController = new TextEditingController();
   final emailEditingController = new TextEditingController();
   final passwordEditingController = new TextEditingController();
   final confirmPasswordEditingController = new TextEditingController();
+  static Position? position;
 
   @override
   Widget build(BuildContext context) {
@@ -49,14 +57,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.account_circle),
+          prefixIcon: Icon(
+            Icons.account_circle,
+            color: Colors.green,
+          ),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Name",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.green),
+            borderRadius: BorderRadius.circular(10),
+          ),
         ));
-
 
     //email field
     final emailField = TextFormField(
@@ -79,10 +93,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.mail),
+          prefixIcon: Icon(
+            Icons.mail,
+            color: Colors.green,
+          ),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Email",
           border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.green),
             borderRadius: BorderRadius.circular(10),
           ),
         ));
@@ -106,10 +127,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.vpn_key),
+          prefixIcon: Icon(
+            Icons.vpn_key,
+            color: Colors.green,
+          ),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Password",
           border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.green),
             borderRadius: BorderRadius.circular(10),
           ),
         ));
@@ -131,10 +159,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         },
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.vpn_key),
+          prefixIcon: Icon(
+            Icons.vpn_key,
+            color: Colors.green,
+          ),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Confirm Password",
           border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.green),
             borderRadius: BorderRadius.circular(10),
           ),
         ));
@@ -143,7 +178,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     final signUpButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
-      color: Colors.redAccent,
+      color: Colors.green[500],
       child: MaterialButton(
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
@@ -164,7 +199,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.red),
+          icon: Icon(Icons.arrow_back, color: Colors.green),
           onPressed: () {
             // passing this to our root
             Navigator.of(context).pop();
@@ -176,7 +211,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           child: Container(
             color: Colors.white,
             child: Padding(
-              padding: const EdgeInsets.all(36.0),
+              padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -184,13 +219,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(
-                        height: 180,
+                        height: 300,
                         child: Image.asset(
-                          "assets/images/Logo2.jpg",
+                          "assets/images/Logo.png",
                           fit: BoxFit.contain,
                         )),
-                    SizedBox(height: 45),
-                   nameField,
+                    nameField,
                     SizedBox(height: 20),
                     emailField,
                     SizedBox(height: 20),
@@ -198,8 +232,31 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     SizedBox(height: 20),
                     confirmPasswordField,
                     SizedBox(height: 20),
-                    signUpButton,
-                    SizedBox(height: 15),
+                    Column(
+                      children: [
+                        SelectState(
+                          // style: TextStyle(color: Colors.red),
+                          onCountryChanged: (value) {
+                            setState(() {
+                              countryValue = value;
+                            });
+                          },
+                          onStateChanged: (value) {
+                            setState(() {
+                              stateValue = value;
+                            });
+                          },
+                          onCityChanged: (value) {
+                            setState(() {
+                              cityValue = value;
+                            });
+                          },
+                        ),
+                        SizedBox(height: 15),
+                        signUpButton,
+                        SizedBox(height: 15),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -209,6 +266,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       ),
     );
   }
+
   void signUp(String email, String password) async {
     if (_formKey.currentState!.validate()) {
       try {
@@ -246,6 +304,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       }
     }
   }
+
   postDetailsToFirestore() async {
     // calling our firestore
     // calling our user model
@@ -253,15 +312,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     auth.User? user = _auth.currentUser;
-
-    User userModel = User( email: "" , uid: "" , name: " " , id: 213 , infected: true , lat: 213 , lng:  123 , phone: "   " , username: "") ;
-
-    // writing all the values
-    userModel.email = user!.email;
-    userModel.uid = user.uid;
-    userModel.name = firstNameEditingController.text;
-    userModel.password = passwordEditingController.text;
-
+    position = await LocationHelper.getCurrentLocation();
+    User userModel = User(
+        country: countryValue!,
+        state: stateValue!,
+        city: cityValue!,
+        password: passwordEditingController.text,
+        email: user!.email,
+        uid: user.uid,
+        name: firstNameEditingController.text,
+        id: 5,
+        infected: false,
+        lat: position!.latitude,
+        lng: position!.longitude,
+        phone: "   ",
+        username: "");
 
     await firebaseFirestore
         .collection("users")
@@ -272,6 +337,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     Navigator.pushAndRemoveUntil(
         (context),
         MaterialPageRoute(builder: (context) => HomeScreen()),
-            (route) => false);
+        (route) => false);
   }
 }

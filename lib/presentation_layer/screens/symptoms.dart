@@ -21,6 +21,7 @@ class _SymptomsState extends State<Symptoms> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.green[800],
         title: Text('Symptoms'),
       ),
       body: Container(
@@ -28,7 +29,7 @@ class _SymptomsState extends State<Symptoms> {
         width: MediaQuery.of(context).size.width,
         child: PageIndicatorContainer(
           indicatorColor: Colors.black,
-          indicatorSelectorColor: Theme.of(context).primaryColor,
+          indicatorSelectorColor: Colors.green,
           shape: IndicatorShape.circle(size: 10),
           length: 6,
           child: PageView.builder(

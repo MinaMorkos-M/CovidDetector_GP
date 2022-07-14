@@ -1,4 +1,3 @@
-
 class User {
   int? id;
 
@@ -11,32 +10,40 @@ class User {
   double lng;
   double lat;
   String uid;
+  String country;
+  String state;
+  String city;
 
-  User({
-    required this.id,
-    required this.name,
-    required this.username,
-    required this.email,
-    required this.phone,
-    required this.infected,
-    required this.lat,
-    required this.lng,
-    required this.uid
-
-  });
-
+  User(
+      {required this.password,
+      required this.id,
+      required this.name,
+      required this.username,
+      required this.email,
+      required this.phone,
+      required this.infected,
+      required this.lat,
+      required this.lng,
+      required this.uid,
+      required this.country,
+      required this.state,
+      required this.city});
 
   // receiving data from server
   factory User.fromMap(map) {
     return User(
-        uid: map['uid'],
-        email: map['email'],
-        name: map['name'],
-        id: 1 ,
-      infected: false ,
-      lat: 2 ,
-      lng: 3 ,
-      phone: "" ,
+      uid: map['uid'],
+      email: map['email'],
+      name: map['name'],
+      infected: map['infected'],
+      lat: map['latitude'],
+      lng: map['longitude'],
+      password: map['password'],
+      country: map['country'],
+      state: map['state'],
+      city: map['city'],
+      id: 1,
+      phone: "",
       username: "",
     );
   }
@@ -47,9 +54,14 @@ class User {
       'uid': uid,
       'email': email,
       'name': name,
-      'password' : password,
+      'password': password,
+      'infected': infected,
+      'longitude': lng,
+      'latitude': lat,
+      'country': country,
+      'city': city,
+      'state': state,
     };
-
 
     /*.fromJson(Map<String, dynamic> json) {
     id = json['id'];
