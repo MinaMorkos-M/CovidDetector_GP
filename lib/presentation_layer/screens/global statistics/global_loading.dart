@@ -1,5 +1,5 @@
-import 'package:covid_19_detector/presentation_layer/widgets/global_loading_card.dart';
-import 'package:covid_19_detector/presentation_layer/widgets/global_loading_label.dart';
+import 'package:covid_19_detector/presentation_layer/widgets/global%20statistics/global_loading_card.dart';
+import 'package:covid_19_detector/presentation_layer/widgets/global%20statistics/global_loading_label.dart';
 import 'package:flutter/material.dart';
 
 class GlobalLoading extends StatelessWidget {

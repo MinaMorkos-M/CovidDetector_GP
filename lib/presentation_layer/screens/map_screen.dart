@@ -3,7 +3,7 @@ import 'dart:math' show cos, sqrt, asin;
 import 'package:covid_19_detector/business_logic_layer/helpers/location_helper.dart';
 import 'package:covid_19_detector/business_logic_layer/user_list.dart';
 import 'package:covid_19_detector/data_layer/models/user.dart';
-import 'package:covid_19_detector/presentation_layer/screens/search_screen.dart';
+import 'package:covid_19_detector/presentation_layer/screens/destination%20path%20&%20risk/search_screen.dart';
 import 'package:covid_19_detector/presentation_layer/widgets/map_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -1,5 +1,5 @@
-import 'package:covid_19_detector/presentation_layer/screens/nearest_hospital_map.dart';
-import 'package:covid_19_detector/presentation_layer/screens/nearest_pharmacy_map.dart';
+import 'package:covid_19_detector/presentation_layer/screens/nearest%20hospital%20&%20pharmacy/nearest_hospital_map.dart';
+import 'package:covid_19_detector/presentation_layer/screens/nearest%20hospital%20&%20pharmacy/nearest_pharmacy_map.dart';
 import 'package:flutter/material.dart';
 
 class MapBottomBar extends StatefulWidget {

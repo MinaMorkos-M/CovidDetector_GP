@@ -1,7 +1,7 @@
 import 'package:covid_19_detector/data_layer/models/global.dart';
 import 'package:covid_19_detector/business_logic_layer/helpers/statistics_handler.dart';
-import 'package:covid_19_detector/presentation_layer/screens/global_loading.dart';
-import 'package:covid_19_detector/presentation_layer/screens/global_statistics.dart';
+import 'package:covid_19_detector/presentation_layer/screens/global%20statistics/global_loading.dart';
+import 'package:covid_19_detector/presentation_layer/screens/global%20statistics/global_statistics.dart';
 import 'package:covid_19_detector/presentation_layer/widgets/error_card.dart';
 import 'package:flutter/material.dart';
 

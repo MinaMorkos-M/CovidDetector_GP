@@ -1,5 +1,4 @@
 import 'package:covid_19_detector/presentation_layer/screens/home_screen.dart';
-import 'package:covid_19_detector/presentation_layer/screens/profile.dart';
 import 'package:covid_19_detector/presentation_layer/widgets/settings_text.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
@@ -11,12 +10,13 @@ class Settings extends StatefulWidget {
   String country;
   String state;
   String city;
-  Settings(
-      {required this.infectedValue,
-      required this.name,
-      required this.city,
-      required this.state,
-      required this.country});
+  Settings({
+    required this.infectedValue,
+    required this.name,
+    required this.city,
+    required this.state,
+    required this.country,
+  });
   _SettingsState createState() => _SettingsState();
 }
 
@@ -68,7 +68,7 @@ class _SettingsState extends State<Settings> {
             ),
           ),
           Divider(),
-          SettingsText('Account Settings'),
+          SettingsText('Account Information'),
           ListTile(
             leading: CircleAvatar(
               backgroundColor: Theme.of(context).accentColor,

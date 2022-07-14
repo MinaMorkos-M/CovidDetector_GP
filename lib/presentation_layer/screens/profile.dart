@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:covid_19_detector/business_logic_layer/helpers/storageservices.dart';
 import 'package:covid_19_detector/presentation_layer/screens/about.dart';
-import 'package:covid_19_detector/presentation_layer/screens/login_screen.dart';
+import 'package:covid_19_detector/presentation_layer/screens/login%20&%20signup/login_screen.dart';
 import 'package:covid_19_detector/presentation_layer/screens/preventions.dart';
 import 'package:covid_19_detector/presentation_layer/screens/settings.dart'
     as settings_screen;
@@ -27,7 +27,7 @@ class _ProfileState extends State<Profile> {
     List<String> urls = [];
     var url;
     for (int i = 1; i < widget.numberOfSymptoms + 1; i++) {
-      url = await storageService.downloadURL('symptoms/${i}.jpg');
+      url = await storageService.downloadURL('symptoms/$i.jpg');
 
       urls.add(url);
     }
@@ -39,7 +39,7 @@ class _ProfileState extends State<Profile> {
     List<String> urls = [];
     var url;
     for (int i = 1; i < widget.numberOfPreventions + 1; i++) {
-      url = await storageService.downloadURL('preventions/${i}.jpg');
+      url = await storageService.downloadURL('preventions/$i.jpg');
 
       urls.add(url);
     }
@@ -59,7 +59,7 @@ class _ProfileState extends State<Profile> {
       var result = value.data();
       widget.numberOfSymptoms = result!['number'];
       for (int i = 1; i < result['number'] + 1; i++) {
-        title = result['symp${i}'];
+        title = result['symp$i'];
         titles.add(title);
       }
     });
@@ -78,7 +78,7 @@ class _ProfileState extends State<Profile> {
       var result = value.data();
       widget.numberOfPreventions = result!['number'];
       for (int i = 1; i < result['number'] + 1; i++) {
-        title = result['prevention${i}'];
+        title = result['prevention$i'];
         titles.add(title);
       }
     });
@@ -97,7 +97,7 @@ class _ProfileState extends State<Profile> {
       var result = value.data();
       widget.numberOfPreventions = result!['number'];
       for (int i = 1; i < result['number'] + 1; i++) {
-        title = result['who${i}'];
+        title = result['who$i'];
         titles.add(title);
       }
     });
@@ -170,7 +170,11 @@ class _ProfileState extends State<Profile> {
                 margin: EdgeInsets.symmetric(
                   vertical: MediaQuery.of(context).size.height * 0.025,
                 ),
-                child: ProfileData(loggedInUser.name!, 'Cairo', 'Egypt'),
+                child: ProfileData(
+                  loggedInUser.name!,
+                  loggedInUser.city,
+                  loggedInUser.country,
+                ),
               ),
               ListTile(
                 title: Text(

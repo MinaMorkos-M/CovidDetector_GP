@@ -1,4 +1,3 @@
-import 'package:covid_19_detector/business_logic_layer/constants.dart';
 import 'package:flutter/material.dart';
 
 class NavigationOption extends StatelessWidget {
@@ -24,7 +23,7 @@ class NavigationOption extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              color: selected ? kPrimaryColor : Colors.grey[400],
+              color: selected ? Theme.of(context).primaryColor : Colors.grey[400],
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
@@ -39,7 +38,7 @@ class NavigationOption extends StatelessWidget {
                       width: 8,
                       height: 8,
                       decoration: BoxDecoration(
-                        color: kPrimaryColor,
+                        color: Theme.of(context).primaryColor,
                         shape: BoxShape.circle,
                       ),
                     )

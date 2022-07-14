@@ -1,7 +1,6 @@
-import 'package:covid_19_detector/business_logic_layer/constants.dart';
-import 'package:covid_19_detector/presentation_layer/screens/country.dart';
-import 'package:covid_19_detector/presentation_layer/screens/global.dart';
-import 'package:covid_19_detector/presentation_layer/screens/navigation_option.dart';
+import 'package:covid_19_detector/presentation_layer/screens/country%20statistics/country.dart';
+import 'package:covid_19_detector/presentation_layer/screens/global%20statistics/global.dart';
+import 'package:covid_19_detector/presentation_layer/widgets/navigation_option.dart';
 
 import 'package:flutter/material.dart';
 
@@ -25,7 +24,7 @@ class _StatisticsState extends State<Statistics> {
             child: Container(
               padding: EdgeInsets.all(32),
               decoration: BoxDecoration(
-                color: kPrimaryColor,
+                color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(50),
                   bottomLeft: Radius.circular(50),

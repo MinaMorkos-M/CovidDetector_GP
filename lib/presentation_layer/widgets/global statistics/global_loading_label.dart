@@ -9,8 +9,8 @@ class LoadingLabel extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8),
       child: Shimmer.fromColors(
-        baseColor: Colors.blue,
-        highlightColor: Colors.blue,
+        baseColor: Theme.of(context).primaryColor,
+        highlightColor: Theme.of(context).primaryColor,
         child: Column(
           children: [
             Container(

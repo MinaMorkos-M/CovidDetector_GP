@@ -3,7 +3,7 @@ import 'package:covid_19_detector/presentation_layer/widgets/question_number_car
 import 'package:flutter/material.dart';
 
 class WhoQuestions extends StatefulWidget {
-  List<String> questions;
+  final List<String> questions;
   WhoQuestions({required this.questions});
   @override
   _WhoQuestionsState createState() => _WhoQuestionsState();

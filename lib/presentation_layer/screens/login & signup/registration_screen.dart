@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:covid_19_detector/business_logic_layer/helpers/location_helper.dart';
 import 'package:geolocator/geolocator.dart';
-import '../../data_layer/models/user.dart';
-import 'home_screen.dart';
+import '../../../data_layer/models/user.dart';
+import '../home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';

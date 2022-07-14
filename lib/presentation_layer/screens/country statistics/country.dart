@@ -2,7 +2,7 @@ import 'package:covid_19_detector/business_logic_layer/helpers/wrong_countries.d
 import 'package:covid_19_detector/data_layer/models/country.dart';
 import 'package:covid_19_detector/data_layer/models/country_summary.dart';
 import 'package:covid_19_detector/business_logic_layer/helpers/statistics_handler.dart';
-import 'package:covid_19_detector/presentation_layer/screens/country_statistics.dart';
+import 'package:covid_19_detector/presentation_layer/screens/country%20statistics/country_statistics.dart';
 import 'package:covid_19_detector/presentation_layer/widgets/error_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart'
