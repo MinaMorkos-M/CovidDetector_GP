@@ -14,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+  List<User> users = [] ;
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   void _onItemTapped(int index) {
     setState(() {
@@ -27,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void getUsersLongitudeAndLatitude() async {
     int numberOfUsers = 0;
     List<String> uids = [];
-    List<User> users = [];
+    
     await FirebaseFirestore.instance
         .collection("users")
         .doc("uid")
@@ -65,8 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     });
     for (int i = 0; i < users.length; i++) {
-      print(users[i].lng);
+      print("lng=${users[i].lng}");
     }
+  }
+
+  @override
+  initState() {
+    super.initState();
+    getUsersLongitudeAndLatitude();
   }
 
   static List<Widget> _pages = [
