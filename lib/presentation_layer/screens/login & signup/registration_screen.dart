@@ -327,7 +327,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         lng: position!.longitude,
         phone: "   ",
         username: "");
+    int numberOfUsers = 0;
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc("uid")
+        .get()
+        .then((value) async {
+      var result = value.data();
+      numberOfUsers = result!['number'];
+    });
 
+    await firebaseFirestore
+        .collection("users")
+        .doc(user.uid)
+        .set(userModel.toMap());
+    Fluttertoast.showToast(msg: "Account created successfully :) ");
+    await firebaseFirestore.collection("users").doc("uid").update(
+        {'number': numberOfUsers + 1, 'user${numberOfUsers + 1}': user.uid});
     await firebaseFirestore
         .collection("users")
         .doc(user.uid)
