@@ -46,9 +46,10 @@ class About extends StatelessWidget {
               ),
               Divider(),
               ListTile(
-                  leading: Icon(Icons.code),
-                  title: Text('Source code on GitHub'),
-                  onTap: () => url_launcher.launch(GITHUB_URL))
+                leading: Icon(Icons.code),
+                title: Text('Source code on GitHub'),
+                onTap: () => url_launcher.launch(GITHUB_URL),
+              )
             ],
           ),
           Column(

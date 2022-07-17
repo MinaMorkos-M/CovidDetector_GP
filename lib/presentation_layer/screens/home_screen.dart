@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:covid_19_detector/data_layer/models/user.dart';
 import 'package:covid_19_detector/presentation_layer/screens/map_screen.dart';
-import 'package:covid_19_detector/presentation_layer/screens/profile.dart';
+import 'package:covid_19_detector/presentation_layer/screens/profile%20screens/profile.dart';
 import 'package:covid_19_detector/presentation_layer/screens/statistics.dart';
 import 'package:flutter/material.dart';
 
@@ -13,67 +13,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
-  List<User> users = [] ;
-  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  int _selectedIndex = 1;
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      if (_selectedIndex == 1) {
-        getUsersLongitudeAndLatitude();
-      }
     });
-  }
-
-  void getUsersLongitudeAndLatitude() async {
-    int numberOfUsers = 0;
-    List<String> uids = [];
-    
-    await FirebaseFirestore.instance
-        .collection("users")
-        .doc("uid")
-        .get()
-        .then((value) async {
-      var result = value.data();
-
-      numberOfUsers = result!['number'];
-      for (int i = 0; i < numberOfUsers; i++) {
-        uids.add(result['user${i + 1}']);
-      }
-      print(uids);
-      for (int i = 0; i < uids.length; i++) {
-        await FirebaseFirestore.instance
-            .collection("users")
-            .doc(uids[i])
-            .get()
-            .then((value) {
-          var result = value.data();
-          users.add(User(
-              lng: result!['longitude'],
-              lat: result['latitude'],
-              infected: result['infected'],
-              state: "",
-              country: "",
-              city: " ",
-              email: "",
-              id: 0,
-              phone: "",
-              username: "",
-              name: "",
-              uid: "",
-              password: ""));
-        });
-      }
-    });
-    for (int i = 0; i < users.length; i++) {
-      print("lng=${users[i].lng}");
-    }
   }
 
   @override
   initState() {
     super.initState();
-    getUsersLongitudeAndLatitude();
+    //getUsersLongitudeAndLatitude();
   }
 
   static List<Widget> _pages = [

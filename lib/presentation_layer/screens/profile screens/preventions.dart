@@ -26,7 +26,7 @@ class _PreventionsState extends State<Preventions> {
           indicatorSelectorColor: Colors.green,
           length: 6,
           child: PageView.builder(
-            itemCount: 6,
+            itemCount: widget.url.length,
             itemBuilder: (context, index) {
               return Column(
                 children: [

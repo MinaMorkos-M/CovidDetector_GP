@@ -21,7 +21,6 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  bool darkSwitchValue = false;
   final _auth = auth.FirebaseAuth.instance;
 
   @override

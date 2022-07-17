@@ -26,7 +26,7 @@ class _SymptomsState extends State<Symptoms> {
           shape: IndicatorShape.circle(size: 10),
           length: 6,
           child: PageView.builder(
-            itemCount: 6,
+            itemCount: widget.url.length,
             itemBuilder: (context, index) {
               return Column(
                 children: [

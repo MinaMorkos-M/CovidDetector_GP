@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class QuestionNumberCard extends StatelessWidget {
   final int questionNumber;
-  QuestionNumberCard(this.questionNumber);
+  final int numberOfQuestions;
+  QuestionNumberCard(this.questionNumber, this.numberOfQuestions);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class QuestionNumberCard extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(8.0),
         child: Text(
-          '${questionNumber + 1}/6',
+          '${questionNumber + 1}/$numberOfQuestions',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.white,
