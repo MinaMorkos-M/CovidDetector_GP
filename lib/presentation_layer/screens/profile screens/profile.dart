@@ -1,16 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:covid_19_detector/business_logic_layer/helpers/storageservices.dart';
-import 'package:covid_19_detector/presentation_layer/screens/about.dart';
+import 'package:covid_19_detector/presentation_layer/screens/profile%20screens/about.dart';
 import 'package:covid_19_detector/presentation_layer/screens/login%20&%20signup/login_screen.dart';
-import 'package:covid_19_detector/presentation_layer/screens/preventions.dart';
-import 'package:covid_19_detector/presentation_layer/screens/settings.dart'
+import 'package:covid_19_detector/presentation_layer/screens/profile%20screens/preventions.dart';
+import 'package:covid_19_detector/presentation_layer/screens/profile%20screens/settings.dart'
     as settings_screen;
-import 'package:covid_19_detector/presentation_layer/screens/symptoms.dart';
-import 'package:covid_19_detector/presentation_layer/screens/who_questions.dart';
+import 'package:covid_19_detector/presentation_layer/screens/profile%20screens/symptoms.dart';
+import 'package:covid_19_detector/presentation_layer/screens/profile%20screens/who_questions.dart';
 import 'package:covid_19_detector/presentation_layer/widgets/profile_data.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
-import '../../data_layer/models/user.dart';
+import '../../../data_layer/models/user.dart';
 
 class Profile extends StatefulWidget {
   int numberOfSymptoms = 0;
@@ -28,10 +28,8 @@ class _ProfileState extends State<Profile> {
     var url;
     for (int i = 1; i < widget.numberOfSymptoms + 1; i++) {
       url = await storageService.downloadURL('symptoms/$i.jpg');
-
       urls.add(url);
     }
-
     return urls;
   }
 
@@ -40,7 +38,6 @@ class _ProfileState extends State<Profile> {
     var url;
     for (int i = 1; i < widget.numberOfPreventions + 1; i++) {
       url = await storageService.downloadURL('preventions/$i.jpg');
-
       urls.add(url);
     }
 
@@ -50,7 +47,6 @@ class _ProfileState extends State<Profile> {
   Future<List<String>> getSymptomsTitles() async {
     List<String> titles = [];
     var title;
-
     await FirebaseFirestore.instance
         .collection("symptoms")
         .doc("titles")
@@ -69,7 +65,6 @@ class _ProfileState extends State<Profile> {
   Future<List<String>> getPreventionsTitles() async {
     List<String> titles = [];
     var title;
-
     await FirebaseFirestore.instance
         .collection("preventions")
         .doc("titles")
@@ -88,7 +83,6 @@ class _ProfileState extends State<Profile> {
   Future<List<String>> getQuestions() async {
     List<String> titles = [];
     var title;
-
     await FirebaseFirestore.instance
         .collection("who")
         .doc("titles")

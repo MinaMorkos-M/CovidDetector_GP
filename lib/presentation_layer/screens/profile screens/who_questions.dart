@@ -51,13 +51,14 @@ class _WhoQuestionsState extends State<WhoQuestions> {
         backgroundColor: Colors.green[800],
       ),
       body: Center(
-        child: (questionNumber < 6)
+        child: (questionNumber < widget.questions.length)
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Align(
                     alignment: Alignment.centerRight,
-                    child: QuestionNumberCard(questionNumber),
+                    child: QuestionNumberCard(
+                        questionNumber, widget.questions.length),
                   ),
                   QuestionCard(
                     widget.questions[questionNumber],
@@ -106,7 +107,7 @@ class _WhoQuestionsState extends State<WhoQuestions> {
               )
             : Column(
                 children: [
-                  (yesCounter >= 4)
+                  (yesCounter >= (widget.questions.length / 2))
                       ? Container(
                           width: MediaQuery.of(context).size.width * 0.8,
                           child: Image.asset('assets/images/unvalid.png'),
@@ -120,7 +121,7 @@ class _WhoQuestionsState extends State<WhoQuestions> {
                       top: 10,
                     ),
                     child: Text(
-                      (yesCounter >= 4)
+                      (yesCounter >= (widget.questions.length / 2))
                           ? 'Please go and check with the doctor.'
                           : 'Don\'t worry you are safe.',
                       style: TextStyle(

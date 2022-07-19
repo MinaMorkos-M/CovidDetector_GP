@@ -32,7 +32,10 @@ class QuestionCard extends StatelessWidget {
             maxLines: 8,
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Colors.white,
+            ),
           ),
         ),
       ),

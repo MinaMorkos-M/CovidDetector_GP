@@ -139,56 +139,63 @@ class _SearchScreenState extends State<SearchScreen> {
                 });
               },
             ),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: predictions.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: CircleAvatar(
-                    child: Icon(
-                      Icons.pin_drop,
-                      color: Colors.white,
-                    ),
-                  ),
-                  title: Text(
-                    predictions[index].description.toString(),
-                  ),
-                  onTap: () async {
-                    final placeId = predictions[index].placeId!;
-                    final details = await googlePlace.details.get(placeId);
-                    if (details != null && details.result != null && mounted) {
-                      if (startFocusNode.hasFocus) {
-                        setState(() {
-                          startPosition = details.result;
-                          _startSearchFieldController.text =
-                              details.result!.name!;
-                          predictions = [];
-                        });
-                      } else {
-                        setState(() {
-                          endPosition = details.result;
-                          _endSearchFieldController.text =
-                              details.result!.name!;
-                          predictions = [];
-                        });
-                      }
-                      if (startPosition != null && endPosition != null) {
-                        print("navigate");
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SearchMapScreen(
-                              startPosition: startPosition,
-                              endPosition: endPosition,
-                            ),
+            (predictions.length == 0)
+                ? ListTile(
+                    title: Text("No results found"),
+                  )
+                : ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: predictions.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        leading: CircleAvatar(
+                          child: Icon(
+                            Icons.pin_drop,
+                            color: Colors.white,
                           ),
-                        );
-                      }
-                    }
-                  },
-                );
-              },
-            ),
+                        ),
+                        title: Text(
+                          predictions[index].description.toString(),
+                        ),
+                        onTap: () async {
+                          final placeId = predictions[index].placeId!;
+                          final details =
+                              await googlePlace.details.get(placeId);
+                          if (details != null &&
+                              details.result != null &&
+                              mounted) {
+                            if (startFocusNode.hasFocus) {
+                              setState(() {
+                                startPosition = details.result;
+                                _startSearchFieldController.text =
+                                    details.result!.name!;
+                                predictions = [];
+                              });
+                            } else {
+                              setState(() {
+                                endPosition = details.result;
+                                _endSearchFieldController.text =
+                                    details.result!.name!;
+                                predictions = [];
+                              });
+                            }
+                            if (startPosition != null && endPosition != null) {
+                              print("navigate");
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SearchMapScreen(
+                                    startPosition: startPosition,
+                                    endPosition: endPosition,
+                                  ),
+                                ),
+                              );
+                            }
+                          }
+                        },
+                      );
+                    },
+                  ),
           ],
         ),
       ),

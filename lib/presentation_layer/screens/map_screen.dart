@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math' show cos, sqrt, asin;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:covid_19_detector/business_logic_layer/helpers/location_helper.dart';
-import 'package:covid_19_detector/business_logic_layer/user_list.dart';
 import 'package:covid_19_detector/data_layer/models/user.dart';
 import 'package:covid_19_detector/presentation_layer/screens/destination%20path%20&%20risk/search_screen.dart';
 import 'package:covid_19_detector/presentation_layer/widgets/map_bottom_bar.dart';
@@ -13,14 +13,16 @@ import 'package:location/location.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
-
+  //List<User> users;
+  //MapScreen({required this.users});
   @override
   _MapScreenState createState() => _MapScreenState();
 }
 
 class _MapScreenState extends State<MapScreen> {
-
-
+  List<User> users = [];
+  int numberOfUsers = 0;
+  List<String> uids = [];
   // ignore: cancel_subscriptions
   StreamSubscription? subscription;
   bool showButton = false;
@@ -36,6 +38,46 @@ class _MapScreenState extends State<MapScreen> {
     zoom: 15,
   );
 
+  void getUsersLongitudeAndLatitude() async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc("uid")
+        .get()
+        .then((value) async {
+      var result = value.data();
+
+      numberOfUsers = result!['number'];
+      for (int i = 0; i < numberOfUsers; i++) {
+        uids.add(result['user${i + 1}']);
+      }
+      print(uids);
+      for (int i = 0; i < uids.length; i++) {
+        await FirebaseFirestore.instance
+            .collection("users")
+            .doc(uids[i])
+            .get()
+            .then((value) {
+          var result = value.data();
+          users.add(User(
+              lng: result!['longitude'],
+              lat: result['latitude'],
+              infected: result['infected'],
+              state: "",
+              country: "",
+              city: " ",
+              email: "",
+              id: 0,
+              phone: "",
+              username: "",
+              name: "",
+              uid: "",
+              password: ""));
+        });
+      }
+    });
+    getAllMarkers(users);
+  }
+
   double calculateDistance(lat1, lon1, lat2, lon2) {
     var p = 0.017453292519943295;
     var c = cos;
@@ -46,43 +88,48 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   getCurrentLocation() async {
-      try {
-        position = await LocationHelper.getCurrentLocation().whenComplete(() {
-          setState(() {});
-        });
+    try {
+      position = await LocationHelper.getCurrentLocation().whenComplete(() {
+        setState(() {});
+      });
 
-        circles = Set.from(
-          [
-            Circle(
-              circleId: CircleId("Me"),
-              center: LatLng(position!.latitude, position!.longitude),
-              radius: 200,
-              strokeWidth: 1,
-              fillColor: Colors.red.withAlpha(60),
-              strokeColor: Colors.red,
-              zIndex: 1,
-            )
-          ],
-        );
-
-        if (subscription != null) {
-          subscription!.cancel();
-        }
-      } on PlatformException catch (e) {
-        print(e.message);
+      circles = Set.from(
+        [
+          Circle(
+            circleId: CircleId("Me"),
+            center: LatLng(position!.latitude, position!.longitude),
+            radius: 200,
+            strokeWidth: 1,
+            fillColor: Colors.red.withAlpha(60),
+            strokeColor: Colors.red,
+            zIndex: 1,
+          )
+        ],
+      );
+      getUsersLongitudeAndLatitude();
+      if (subscription != null) {
+        subscription!.cancel();
       }
-
+    } on PlatformException catch (e) {
+      print(e.message);
+    }
   }
 
   getAllMarkers(List<User> users) {
+    print("Users number:${users.length}");
     for (int i = 0; i < users.length; i++) {
       if (users[i].infected == true) {
         LatLng userPosition = LatLng(
           users[i].lat,
           users[i].lng,
         );
-        if (true) {
-          //TODO:if distance is less than 0.2 km
+        if (calculateDistance(
+              users[i].lat,
+              users[i].lng,
+              position!.latitude,
+              position!.longitude,
+            ) <
+            0.2) {
           Marker marker = Marker(
             markerId: MarkerId("Infected"),
             position: userPosition,
@@ -101,7 +148,6 @@ class _MapScreenState extends State<MapScreen> {
   initState() {
     super.initState();
     getCurrentLocation();
-    getAllMarkers(Dummy.users);
   }
 
   @override
