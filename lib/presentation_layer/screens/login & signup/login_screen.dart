@@ -1,8 +1,12 @@
+import 'package:covid_19_detector/business_logic_layer/helpers/location_helper.dart';
+import 'package:geolocator/geolocator.dart';
+
 import '../home_screen.dart';
 import 'registration_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -18,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   // editing controller
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
+  static Position? position;
 
   // firebase
   final _auth = FirebaseAuth.instance;
@@ -176,9 +181,19 @@ class _LoginScreenState extends State<LoginScreen> {
   void signIn(String email, String password) async {
     if (_formKey.currentState!.validate()) {
       try {
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+
         await _auth
             .signInWithEmailAndPassword(email: email, password: password)
-            .then((uid) => {
+            .then((uid) async => {
+                  position = await LocationHelper.getCurrentLocation(),
+                  await firebaseFirestore
+                      .collection("users")
+                      .doc(_auth.currentUser!.uid)
+                      .update({
+                    "longitude": position!.longitude,
+                    "latitude": position!.latitude
+                  }),
                   Fluttertoast.showToast(msg: "Login Successful"),
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) => HomeScreen())),
