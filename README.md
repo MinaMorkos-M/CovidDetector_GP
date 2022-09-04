@@ -8,5 +8,5 @@
 * Allow user to get an idea about symptoms and preventions of the Covid-19.
 
 
-https://user-images.githubusercontent.com/63639438/188329624-9b4e730b-499a-4536-a3bc-0a31639c0c23.mp4
+https://user-images.githubusercontent.com/63639438/188329729-77b53b14-55b8-4aa3-b27a-8fd9648b2053.mp4
 
